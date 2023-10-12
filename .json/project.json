@@ -1,0 +1,39 @@
+{
+    "projects":[
+        {
+            "id":"uuid",
+            "projectName": "Design Project",
+            "board": "Main",
+           
+            
+            "comments": [{
+                "Initial comment on the project": "uuid",
+                "projectDate": "01/01/2023",
+                "projectTime": "10:30 AM",
+                "user":"uuid",
+
+                "comments":[]
+            }
+            ],
+            "contributorList":[
+                "John Doe",
+                "Jane Doe"
+            ]
+        },
+        {
+            "projectName": "Practice Project",
+            "board": "Intern Board",
+            "projectDate": "01/01/2023",
+            "projectTime": "10:30 AM", 
+            "comments": [
+                "Initial comment on the project",
+                "Feedback received and changes made"
+            ],
+            "contributorList":[
+                "John Doe",
+                "Jane Doe"
+            ]
+        }
+            
+    ]
+}

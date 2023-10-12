@@ -1,0 +1,21 @@
+{
+    "userList": [
+        {
+            "id":"UUID",
+            "firstName": "John",
+            "lastName": "Doe",
+            "userEmail": "john.doe@gmail.com",
+            "password": "password"
+        },
+        {
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "userEmail": "janesmith456",
+            "password": "password"
+            
+
+        }
+        
+        
+    ]
+}
