@@ -7,84 +7,85 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private ArrayList<String> projectsList;
+    private ArrayList<Project> projectsList;
     private boolean userType;
 
-    public User(UUID uuid, String firstName, String lastName, String username, String password) {
+    public User(UUID uuid, String firstName, String lastName, String username, String password, boolean userType) {
         this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.projectsList = new ArrayList<>();
+        this.userType = userType;
     }
 
-    public void callProject() {
-        // Implement the logic for calling a project.
+    public void callProject(Project project) {
+        // Implementation for calling a project
     }
 
     public boolean checkUserType() {
-        // Implement the logic for checking the user type.
         return userType;
     }
 
     public void addComment(Project project, String message) {
-        // Implement the logic to add a comment to a project.
+        project.addComment(message);
     }
 
     public void removeComment(Project project, String message) {
-        // Implement the logic to remove a comment from a project.
+        project.removeComment(message);
     }
 
-    public void editComment() {
-        // Implement the logic to edit a comment.
+    public void editComment(Project project, String oldMessage, String newMessage) {
+        project.editComment(oldMessage, newMessage);
     }
 
-    public void addTask() {
-        // Implement the logic to add a task.
+    public void addTask(Project project, Task task) {
+        project.addTask(task);
     }
 
-    public void removeTask() {
-        // Implement the logic to remove a task.
+    public void removeTask(Project project, Task task) {
+        project.removeTask(task);
     }
 
-    public void editTask() {
-        // Implement the logic to edit a task.
+    public void editTask(Task task, String newTask) {
+        task.editTask(newTask);
     }
 
-    public void addProject(Board board) {
-        // Implement the logic to add a project to a board.
+    public void addProject(Board board, Project project) {
+        board.addProject(project);
     }
 
-    public void addContributor(Contributor contributor) {
-        // Implement the logic to add a contributor to a project.
+
+    public void addContributor(Project project, Contributor contributor) {
+        project.addContributor(contributor);
     }
 
-    public void deleteContributor(Contributor contributor) {
-        // Implement the logic to delete a contributor from a project.
+    public void deleteContributor(Project project, Contributor contributor) {
+        project.deleteContributor(contributor);
     }
 
     public void addProject(Project project) {
-        // Implement the logic to add a project to the user's project list.
+        projectsList.add(project);
     }
 
     public void deleteProject(Project project) {
-        // Implement the logic to delete a project from the user's project list.
+        projectsList.remove(project);
     }
 
-    public void editProjectDescription() {
-        // Implement the logic to edit the description of a project.
+    public void editProjectDescription(Project project, String newDescription) {
+        project.editProjectDescription(newDescription);
     }
 
-    public void addColumns(Columns columns) {
-        // Implement the logic to add columns to a project.
+    public void addColumns(Project project, Columns columns) {
+        project.addColumns(columns);
     }
 
-    public void deleteColumns(Columns columns) {
-        // Implement the logic to delete columns from a project.
+    public void deleteColumns(Project project, Columns columns) {
+        project.deleteColumns(columns);
     }
 
-    public void editColumns(Columns columns) {
-        // Implement the logic to edit columns in a project.
+    public void editColumns(Project project, Columns oldColumns, Columns newColumns) {
+        project.editColumns(oldColumns, newColumns);
     }
 }

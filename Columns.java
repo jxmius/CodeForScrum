@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
-public class Column {
+public class Columns {
     private String columnName;
-    private ArrayList<String> taskArray = new ArrayList<>();
+    private ArrayList<String> taskArray;
 
-    public Column(String columnName) {
+    public Columns(String columnName) {
         this.columnName = columnName;
+        this.taskArray = new ArrayList<>();
     }
 
     public String getColumnName() {
@@ -20,22 +21,23 @@ public class Column {
         return taskArray;
     }
 
-    public void addTask(String task) {
+    public void addTasks(String task) {
         taskArray.add(task);
     }
 
-    public void editTasks() {
-        // Implementation for editing tasks in the column
-        // You can add your logic here
+    public void editTasks(int taskIndex, String newTask) {
+        if (taskIndex >= 0 && taskIndex < taskArray.size()) {
+            taskArray.set(taskIndex, newTask);
+        } else {
+            System.out.println("Invalid task index. Task not edited.");
+        }
     }
 
-    public void addTasks() {
-        // Implementation for adding tasks to the column
-        // You can add your logic here
-    }
-
-    public void deleteTasks() {
-        // Implementation for deleting tasks from the column
-        // You can add your logic here
+    public void deleteTasks(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < taskArray.size()) {
+            taskArray.remove(taskIndex);
+        } else {
+            System.out.println("Invalid task index. Task not deleted.");
+        }
     }
 }

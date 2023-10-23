@@ -1,12 +1,21 @@
 {
     "tasks": [
         {
-            "taskName": "Login Project", 
+            "taskName": "Login Project",
             "taskDate": "2019-01-01",
             "taskTime": "12:00",
             "taskDescription": "Login Project Description",
-            "links": ["https://www.google.com"], 
-            "taskType" : "Project",
+            "links": ["https://www.google.com"],
+            "taskType": "Project",
+            "assignedUser": "John Doe",
+            "dueDate": "2019-02-15",
+            "taskHistory": [
+                {
+                    "actionDate": "2019-01-01",
+                    "actionTime": "12:00",
+                    "actionDescription": "Task created by John Doe."
+                }
+            ],
             "comments": [
                 {
                     "comment": "This is a comment",
@@ -15,13 +24,22 @@
                 }
             ]
         },
-            {
+        {
             "taskName": "Login Project",
             "taskDate": "2019-01-01",
             "taskTime": "12:00",
             "taskDescription": "Login Project Description",
-            "links": "https://www.google.com",
-            "taskType" : "Project",
+            "links": ["https://www.google.com"],
+            "taskType": "Project",
+            "assignedUser": "Jane Smith",
+            "dueDate": "2019-03-10",
+            "taskHistory": [
+                {
+                    "actionDate": "2019-01-01",
+                    "actionTime": "12:00",
+                    "actionDescription": "Task created by Jane Smith."
+                }
+            ],
             "comments": [
                 {
                     "comment": "This is a comment",
@@ -29,7 +47,6 @@
                     "commentTime": "12:00"
                 }
             ]
-            
         }
     ]
 }
