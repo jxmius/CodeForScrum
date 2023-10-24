@@ -9,8 +9,11 @@ public class User {
     private String password;
     private ArrayList<Project> projectsList;
     private boolean userType;
+    private String userEmail; 
+    private int points;       
+    private ArrayList<String> projectNames;
 
-    public User(UUID uuid, String firstName, String lastName, String username, String password, boolean userType) {
+    public User(UUID uuid, String firstName, String lastName, String username, String password, boolean userType, String userEmail, int points, ArrayList<String> projectNames) {
         this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,6 +21,9 @@ public class User {
         this.password = password;
         this.projectsList = new ArrayList<>();
         this.userType = userType;
+        this.userEmail = userEmail;
+        this.points = points;
+        this.projectNames = projectNames;
     }
 
     public void callProject(Project project) {
