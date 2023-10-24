@@ -1,12 +1,12 @@
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class DataLoader extends DataConstants {
-    public DataLoader() {
+public class FileReaderAndWriter {
+    
+    public FileReaderAndWriter() {
     }
 
     public static ArrayList<User> loadUsers() {
@@ -24,22 +24,38 @@ public class DataLoader extends DataConstants {
                 String lastName = (String) userJSON.get("lastName");
                 String username = (String) userJSON.get("username");
                 String password = (String) userJSON.get("password");
-                String userEmail = (String) userJSON.get("userEmail");
-                int points = Integer.parseInt(String.valueOf(userJSON.get("points"))); 
+                boolean userType = "Admin".equals((String) userJSON.get("usertype"));
 
-                boolean userType = "Admin".equalsIgnoreCase((String) userJSON.get("usertype"));
-
-                ArrayList<String> projectNames = new ArrayList<>();
-                JSONArray projectsJSON = (JSONArray) userJSON.get("projects");
-                for (Object projectNameObj : projectsJSON) {
-                    projectNames.add((String) projectNameObj);
-                }
-
-                User user = new User(id, firstName, lastName, username, password, userType, userEmail, points, projectNames);
+                User user = new User(id, firstName, lastName, username, password, userType);
                 users.add(user);
             }
 
             return users;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<Project> loadProjects() {
+        ArrayList<Project> projects = new ArrayList<>();
+
+        try {
+            FileReader reader = new FileReader("src/project.json");
+            JSONArray projectsJSON = (JSONArray) (new JSONParser()).parse(reader);
+
+            for (Object obj : projectsJSON) {
+                JSONObject projectJSON = (JSONObject) obj;
+                
+                String id = (String) projectJSON.get("id");
+                String projectName = (String) projectJSON.get("projectName");
+                String board = (String) projectJSON.get("board");
+                String dateTime = (String) projectJSON.get("dateTime");
+                Project project = new Project(id, projectName, board, dateTime, /*... additional args ... */);
+                projects.add(project);
+            }
+
+            return projects;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
