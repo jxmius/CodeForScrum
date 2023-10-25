@@ -6,7 +6,7 @@ public enum Updatetype {
 
     private String type;
 
-    Updateyype(String type) {
+    Updatetype(String type) {
         this.type = type;
     }
 

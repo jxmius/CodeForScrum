@@ -1,67 +1,105 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.util.ArrayList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class FileReaderAndWriter {
+    private String fileName;
 
-    private static final String PROJECTS_FILE_PATH = "src/project.json";
+    public FileReaderAndWriter(String fileName) {
+        this.fileName = fileName;
+    }
 
-    public static ArrayList<Project> loadProjects() {
-        ArrayList<Project> projects = new ArrayList<>();
+    public String getFileName(Project projectName) {
+        // This method might return a file name based on the project name or other criteria.
+        return projectName.getName() + ".txt";
+    }
+
+    public void addToFile(String data) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(data);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeFromFile(String data) {
         try {
-            FileReader reader = new FileReader(PROJECTS_FILE_PATH);
-            JSONObject obj = (JSONObject) new JSONParser().parse(reader);
-            JSONArray projectsJSON = (JSONArray) obj.get("projects");
-
-            for (Object o : projectsJSON) {
-                JSONObject projectJSON = (JSONObject) o;
-
-                String id = (String) projectJSON.get("id");
-                String projectName = (String) projectJSON.get("projectName");
-                String board = (String) projectJSON.get("board");
-                String dateTime = (String) projectJSON.get("dateTime");
-                Project project = new Project(id, projectName, board, dateTime);
-
-                JSONArray commentsJSON = (JSONArray) projectJSON.get("comments");
-                for (Object c : commentsJSON) {
-                    JSONObject commentJSON = (JSONObject) c;
-                    String text = (String) commentJSON.get("text");
-                    String commentDateTime = (String) commentJSON.get("dateTime");
-                    String user = (String) commentJSON.get("user");
-                    Comment comment = new Comment(text, commentDateTime, user);
-                    project.addComment(comment);
-
-                    JSONArray nestedCommentsJSON = (JSONArray) commentJSON.get("comments");
-                    for (Object nestedC : nestedCommentsJSON) {
-                        JSONObject nestedCommentJSON = (JSONObject) nestedC;
-                        String nestedText = (String) nestedCommentJSON.get("text");
-                        String nestedDateTime = (String) nestedCommentJSON.get("dateTime");
-                        String nestedUser = (String) nestedCommentJSON.get("user");
-                        Comment nestedComment = new Comment(nestedText, nestedDateTime, nestedUser);
-                        comment.addNestedComment(nestedComment);
-                    }
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            StringBuilder fileContents = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.equals(data)) {
+                    fileContents.append(line).append("\n");
                 }
-
-                JSONArray contributorsJSON = (JSONArray) projectJSON.get("contributors");
-                for (Object c : contributorsJSON) {
-                    JSONObject contributorJSON = (JSONObject) c;
-                    String username = (String) contributorJSON.get("username");
-                    String firstName = (String) contributorJSON.get("firstName");
-                    String lastName = (String) contributorJSON.get("lastName");
-                    Contributor contributor = new Contributor(username, firstName, lastName);
-                    project.addContributor(contributor);
-                }
-
-                projects.add(project);
             }
+            reader.close();
 
-            return projects;
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(fileContents.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void editFile(String oldData, String newData) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            StringBuilder fileContents = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.equals(oldData) || line.contains(oldData)) {
+                    fileContents.append(newData).append("\n");
+                } else {
+                    fileContents.append(line).append("\n");
+                }
+            }
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(fileContents.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeFile() {
+        try {
+            if (new File(fileName).delete()) {
+                System.out.println("File deleted successfully.");
+            } else {
+                System.out.println("File deletion failed.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+        }
+    }
+
+    public void search(String query) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(query)) {
+                    System.out.println(line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
