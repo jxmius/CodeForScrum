@@ -10,7 +10,7 @@ public class Comment {
         this.text = text;
         this.dateTime = dateTime;
         this.user = user;
-        this.comments = comments;
+        this.comments = new Comment<>();
     }
 
 
