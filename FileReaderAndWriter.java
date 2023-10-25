@@ -41,7 +41,7 @@ public class FileReaderAndWriter {
                         String nestedUser = (String) nestedCommentJSON.get("user");
                         Comment nestedComment = new Comment(nestedText, nestedDateTime, nestedUser);
                         comment.addNestedComment(nestedComment);
-                    }
+                    } //json array implemantation
                 }
 
                 JSONArray contributorsJSON = (JSONArray) projectJSON.get("contributors");
