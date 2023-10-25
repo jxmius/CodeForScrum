@@ -1,78 +1,51 @@
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class FileReaderAndWriter {
-    
-    public FileReaderAndWriter() {
-    }
 
-    public static ArrayList<User> loadUsers() {
-        ArrayList<User> users = new ArrayList<>();
+    private static final String PROJECTS_FILE_PATH = "src/project.json";
 
+    public static ArrayList<Project> loadProjects() {
+        ArrayList<Project> projects = new ArrayList<>();
         try {
-            FileReader reader = new FileReader("src/user.json");
-            JSONArray usersJSON = (JSONArray) (new JSONParser()).parse(reader);
+            FileReader reader = new FileReader(PROJECTS_FILE_PATH);
+            JSONObject obj = (JSONObject) new JSONParser().parse(reader);
+            JSONArray projectsJSON = (JSONArray) obj.get("projects");
 
-            for (Object obj : usersJSON) {
-                JSONObject userJSON = (JSONObject) obj;
-                
-                UUID id = UUID.fromString((String) userJSON.get("id"));
-                String firstName = (String) userJSON.get("firstName");
-                String lastName = (String) userJSON.get("lastName");
-                String username = (String) userJSON.get("username");
-                String password = (String) userJSON.get("password");
-                boolean userType = "Admin".equals((String) userJSON.get("usertype"));
+            for (Object o : projectsJSON) {
+                JSONObject projectJSON = (JSONObject) o;
 
-                User user = new User(id, firstName, lastName, username, password, userType);
-                users.add(user);
+                String id = (String) projectJSON.get("id");
+                String projectName = (String) projectJSON.get("projectName");
+                String board = (String) projectJSON.get("board");
+                String dateTime = (String) projectJSON.get("dateTime");
+
+                Project project = new Project(id, projectName, board, dateTime);
+
+                JSONArray commentsJSON = (JSONArray) projectJSON.get("comments");
+                for (Object c : commentsJSON) {
+                    // Extract comment fields and add to project's comments list
+                }
+
+                JSONArray contributorsJSON = (JSONArray) projectJSON.get("contributors");
+                for (Object c : contributorsJSON) {
+                    // Extract contributor fields and add to project's contributors list
+                }
+
+                projects.add(project);
             }
 
-            return users;
+            return projects;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static ArrayList<Project> loadProjects() {
-    ArrayList<Project> projects = new ArrayList<>();
-
-    try {
-        FileReader reader = new FileReader("src/project.json");
-        JSONArray projectsJSON = (JSONArray) (new JSONParser()).parse(reader);
-
-        for (Object obj : projectsJSON) {
-            JSONObject projectJSON = (JSONObject) obj;
-
-            String id = (String) projectJSON.get("id");
-            String projectName = (String) projectJSON.get("projectName");
-            String board = (String) projectJSON.get("board");
-            String dateTime = (String) projectJSON.get("dateTime");
-            
-            ArrayList<Contributor> contributors = new ArrayList<>();
-            JSONArray contributorsJSON = (JSONArray) projectJSON.get("contributors");
-            for (Object contributorObj : contributorsJSON) {
-                JSONObject contributorJSON = (JSONObject) contributorObj;
-                String username = (String) contributorJSON.get("username");
-                String firstName = (String) contributorJSON.get("firstName");
-                String lastName = (String) contributorJSON.get("lastName");
-                
-                Contributor contributor = new Contributor(username, firstName, lastName);
-                contributors.add(contributor);
-            }
-            Project project = new Project(id, projectName, board, dateTime);
-            projects.add(project);
-        }
-
-        return projects;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
-    }
-}
-
+    // saveProjects
 }

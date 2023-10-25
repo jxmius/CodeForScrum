@@ -13,7 +13,7 @@ public class DataLoader {
     }
 
     public ArrayList<Project> getProjects() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(projectFilePath)) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(projectFilePath))){
             return (ArrayList<Project>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -22,7 +22,7 @@ public class DataLoader {
     }
 
     public ArrayList<User> getUsers() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(userFilePath)) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(userFilePath))) {
             return (ArrayList<User>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

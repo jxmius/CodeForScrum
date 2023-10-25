@@ -1,21 +1,25 @@
 import java.util.ArrayList;
 
-public class Comments {
-    private String username;
-    private String message;
-    private ArrayList<String> commentsArray;
+public class Comment {
+    private String text;
+    private String dateTime;
+    private String user;
+    private List<Comment> comments;
 
-    public Comments(String username) {
-        this.username = username;
-        this.commentsArray = new ArrayList<>();
+    public Comment(String text, String dateTime, String user, List<Comment> comments) {
+        this.text = text;
+        this.dateTime = dateTime;
+        this.user = user;
+        this.comments = comments;
     }
+
 
     public void comment(String comment, Contributor contributor) {
         String fullComment = contributor.getUsername() + ": " + comment;
-        commentsArray.add(fullComment);
+        comments.add(fullComment);
     }
 
     public void addComments(String comment) {
-        commentsArray.add(comment);
+        comments.add(comment);
     }
 }
