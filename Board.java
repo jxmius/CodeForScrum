@@ -1,34 +1,47 @@
 import java.util.ArrayList;
 
 public class Board {
+    private String boardName;
     private ArrayList<Columns> columns;
 
-    public void addProject(Project project) {
-        projects.add(project);
-    }
-
-    public Board() {
+    public Board(String boardName) {
+        this.boardName = boardName;
         this.columns = new ArrayList<>();
     }
 
-    public void addColumns(Columns newColumns) {
-        columns.add(newColumns);
+    // Getter and setter methods for the board name
+    public String getBoardName() {
+        return boardName;
     }
-    
 
-    public void editColumns(int columnIndex, Columns updatedColumns) {
-        if (columnIndex >= 0 && columnIndex < columns.size()) {
-            columns.set(columnIndex, updatedColumns);
-        } else {
-            System.out.println("Invalid column index. Column not edited.");
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
+    }
+
+    // Getter and setter methods for columns
+    public ArrayList<Columns> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(ArrayList<Columns> columns) {
+        this.columns = columns;
+    }
+
+    // Method to add a new column
+    public void addColumn(Columns column) {
+        columns.add(column);
+    }
+
+    // Method to edit an existing column
+    public void editColumn(Columns oldColumn, Columns newColumn) {
+        if (columns.contains(oldColumn)) {
+            int index = columns.indexOf(oldColumn);
+            columns.set(index, newColumn);
         }
     }
 
-    public void deleteColumns(int columnIndex) {
-        if (columnIndex >= 0 && columnIndex < columns.size()) {
-            columns.remove(columnIndex);
-        } else {
-            System.out.println("Invalid column index. Column not deleted.");
-        }
+    // Method to delete a column
+    public void deleteColumn(Columns column) {
+        columns.remove(column);
     }
 }

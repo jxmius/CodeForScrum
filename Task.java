@@ -35,6 +35,7 @@ public class Task {
             return false;
         }
     }
+
     public void removeTask(ArrayList<Task> taskList) {
         // Find and remove this task from the list
         taskList.remove(this);
