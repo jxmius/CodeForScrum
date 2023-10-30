@@ -5,7 +5,7 @@ public class Project {
     private String projectName;
     private String board;
     private String dateTime;
-    private ArrayList<Comments> comments;
+    private ArrayList<Comment> comments;
     private ArrayList<Contributor> contributors;
 
     public Project(String id, String projectName, String board, String dateTime) {
@@ -34,7 +34,7 @@ public class Project {
         return dateTime;
     }
 
-    public ArrayList<Comments> getComments(Comments comment) {
+    public ArrayList<Comment> getComments() {
         return comments;
     }
 
