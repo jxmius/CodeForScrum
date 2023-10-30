@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class UserList {
     private static final String JSON_FILE_PATH = "users.json";
@@ -20,23 +19,24 @@ public class UserList {
         return instance;
     }
 
-    public void addUser(String firstName, String lastName, String userName, String userEmail, String password) {
-        User user = new User(firstName, lastName, userName, userEmail, password);
+    public void addUser(User user) {
         userList.add(user);
         saveUsersToJson();
     }
 
-    public User getUser(String firstName, String lastName, String userName) {
+    public User getUser(String username) {
         return userList.stream()
-                .filter(user -> user.getFirstName().equals(firstName) &&
-                        user.getLastName().equals(lastName) &&
-                        user.getUsername().equals(userName))
+                .filter(user -> user.getUsername().equals(username))
                 .findFirst()
                 .orElse(null);
     }
 
+    public List<User> getAllUsers() {
+        return new ArrayList<>(userList);
+    }
+
     private void loadUsersFromJson() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(JSON_FILE_PATH)) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(JSON_FILE_PATH))) {
             StringBuilder jsonContent = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -68,7 +68,6 @@ public class UserList {
             json.append("\"firstName\":\"").append(user.getFirstName()).append("\",");
             json.append("\"lastName\":\"").append(user.getLastName()).append("\",");
             json.append("\"username\":\"").append(user.getUsername()).append("\",");
-            json.append("\"userEmail\":\"").append(user.getUserEmail()).append("\",");
             json.append("\"password\":\"").append(user.getPassword()).append("\"");
             json.append("}");
         }
@@ -88,9 +87,8 @@ public class UserList {
                 String firstName = getField(fields, "firstName");
                 String lastName = getField(fields, "lastName");
                 String username = getField(fields, "username");
-                String userEmail = getField(fields, "userEmail");
                 String password = getField(fields, "password");
-                User user = new User(firstName, lastName, username, userEmail, password);
+                User user = new User(firstName, lastName, username, password);
                 parsedUsers.add(user);
                 index = end + 1;
             } else {
