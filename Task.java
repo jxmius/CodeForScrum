@@ -19,44 +19,80 @@ public class Task {
         this.comments = new ArrayList<>();
     }
 
-    public void addTask(String newTask) {
-        taskName = newTask;
+    // Getter and Setter methods for attributes (e.g., getTaskName, setTaskName)
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void editTask(String newTask) {
-        taskName = newTask;
+    public String getTaskDate() {
+        return taskDate;
     }
 
-    public boolean editType(String newType) {
-        if (newType != null && !newType.isEmpty()) {
-            taskType = newType;
-            return true;
-        } else {
-            return false;
-        }
+    public String getTaskTime() {
+        return taskTime;
     }
 
-    public void removeTask(ArrayList<Task> taskList) {
-        // Find and remove this task from the list
-        taskList.remove(this);
+    public String getTaskDescription() {
+        return taskDescription;
     }
 
-    public void addComments(String comment) {
+    public String getLinks() {
+        return links;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+    // Setter methods
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public void setTaskDate(String taskDate) {
+        this.taskDate = taskDate;
+    }
+
+    public void setTaskTime(String taskTime) {
+        this.taskTime = taskTime;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(String comment) {
         comments.add(comment);
     }
 
-    public void displayComments() {
-        for (String comment : comments) {
-            System.out.println(comment);
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void removeComment(int commentIndex) {
+        if (commentIndex >= 0 && commentIndex < comments.size()) {
+            comments.remove(commentIndex);
         }
     }
 
-    public boolean editComments(int commentIndex, String newComment) {
-        if (commentIndex >= 0 && commentIndex < comments.size()) {
-            comments.set(commentIndex, newComment);
-            return true;
-        } else {
-            return false;
-        }
+    @Override
+    public String toString() {
+        // Create a custom string representation of the task
+        // Include taskName, taskDate, taskTime, taskDescription, links, taskType, and comments
+        // You can format it as needed
+        return "Task: " + taskName + "\nDate: " + taskDate + "\nTime: " + taskTime
+                + "\nDescription: " + taskDescription + "\nLinks: " + links
+                + "\nType: " + taskType + "\nComments: " + comments;
     }
 }
