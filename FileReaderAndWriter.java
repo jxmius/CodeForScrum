@@ -30,8 +30,8 @@ public class FileReaderAndWriter {
                     String text = (String) commentJSON.get("text");
                     String commentDateTime = (String) commentJSON.get("dateTime");
                     String user = (String) commentJSON.get("user");
-                    Comment comment = new Comment(text, commentDateTime, user);
-                    project.addComment(comment);
+                    Comments comment = new Comments(text, commentDateTime, user);
+                    project.getComments(comment);
 
                     JSONArray nestedCommentsJSON = (JSONArray) commentJSON.get("comments");
                     for (Object nestedC : nestedCommentsJSON) {
@@ -39,7 +39,7 @@ public class FileReaderAndWriter {
                         String nestedText = (String) nestedCommentJSON.get("text");
                         String nestedDateTime = (String) nestedCommentJSON.get("dateTime");
                         String nestedUser = (String) nestedCommentJSON.get("user");
-                        Comment nestedComment = new Comment(nestedText, nestedDateTime, nestedUser);
+                        Comments nestedComment = new Comments(nestedText, nestedDateTime, nestedUser);
                         comment.addNestedComment(nestedComment);
                     } //json array implemantation
                 }

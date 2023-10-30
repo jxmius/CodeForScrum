@@ -20,7 +20,6 @@ public class User {
         this.userType = false; // Assuming false means a regular user, true means an admin
     }
 
-    // Getter methods for attributes
     public UUID getUuid() {
         return uuid;
     }
@@ -49,80 +48,34 @@ public class User {
         return projectsList;
     }
 
-    // Method to add a project to the user's project list
     public void addProject(Project project) {
         projectsList.add(project);
     }
 
-    // Method to delete a project from the user's project list
     public void deleteProject(Project project) {
         projectsList.remove(project);
     }
 
-    // Method to add a contributor to a project
-    public void addContributor(Project project, Contributor contributor) {
-        project.addContributor(contributor);
+    public void getContributors(Project project, Contributor contributor) {
+        project.getContributors();
     }
 
-    // Method to delete a contributor from a project
-    public void deleteContributor(Project project, Contributor contributor) {
-        project.removeContributor(contributor);
+    public void getComments(Project project, Comments comment) {
+        project.getComments(comment);
     }
 
-    // Method to add a comment to a project
-    public void addComment(Project project, Comments comment) {
-        project.addComment(comment);
+    public void getProjectName(Project project, String projectName) {
+        project.getProjectName();
     }
 
-    // Method to remove a comment from a project
-    public void removeComment(Project project, Comments comment) {
-        project.removeComment(comment);
+    public void getBoard(Project project, Board board) {
+        project.getBoard();
     }
 
-    // Other methods for managing tasks, editing project descriptions, etc.
+    public void getDateTime(Project project, String dateTime) {
+        project.getDateTime();
+    } 
 
-    // Method to add a task to a project
-    public void addTask(Project project, Columns columns, String task) {
-        project.addTask(columns, task);
-    }
+    
 
-    // Method to remove a task from a project
-    public void removeTask(Project project, Columns columns, String task) {
-        project.removeTask(columns, task);
-    }
-
-    // Method to edit a task in a project
-    public void editTask(Project project, Columns columns, String oldTask, String newTask) {
-        project.editTask(columns, oldTask, newTask);
-    }
-
-    // Method to add a project to the user's project list
-    public void addProject(Project project) {
-        projectsList.add(project);
-    }
-
-    // Method to delete a project from the user's project list
-    public void deleteProject(Project project) {
-        projectsList.remove(project);
-    }
-
-    // Method to edit the description of a project
-    public void editProjectDescription(Project project, String newDescription) {
-        project.editDescription(newDescription);
-    }
-
-    // Method to add columns to a project
-    public void addColumns(Project project, Columns columns) {
-        project.addColumns(columns);
-    }
-
-    // Method to delete columns from a project
-    public void deleteColumns(Project project, Columns columns) {
-        project.deleteColumns(columns);
-    }
-
-    // Method to edit columns in a project
-    public void editColumns(Project project, Columns oldColumns, Columns newColumns) {
-        project.editColumns(oldColumns, newColumns);
-    }
 }
