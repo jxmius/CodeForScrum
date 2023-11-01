@@ -88,9 +88,6 @@ public class Task {
 
     @Override
     public String toString() {
-        // Create a custom string representation of the task
-        // Include taskName, taskDate, taskTime, taskDescription, links, taskType, and comments
-        // You can format it as needed
         return "Task: " + taskName + "\nDate: " + taskDate + "\nTime: " + taskTime
                 + "\nDescription: " + taskDescription + "\nLinks: " + links
                 + "\nType: " + taskType + "\nComments: " + comments;

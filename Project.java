@@ -34,7 +34,7 @@ public class Project {
         return dateTime;
     }
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<Comment> getComments(Comment comment) {
         return comments;
     }
 

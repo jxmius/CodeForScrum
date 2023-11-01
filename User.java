@@ -60,7 +60,7 @@ public class User {
         project.getContributors();
     }
 
-    public void getComments(Project project, Comments comment) {
+    public void getComments(Project project, Comment comment) {
         project.getComments(comment);
     }
 

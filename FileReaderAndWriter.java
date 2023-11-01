@@ -51,7 +51,7 @@ public class FileReaderAndWriter {
                     String firstName = (String) contributorJSON.get("firstName");
                     String lastName = (String) contributorJSON.get("lastName");
                     Contributor contributor = new Contributor(username, firstName, lastName);
-                    project.addContributor(contributor);
+                    project.getContributors(contributor);
                 }
 
                 projects.add(project);

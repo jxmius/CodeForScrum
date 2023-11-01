@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class Comments {
+public class Comment {
     private String username;
     private ArrayList<String> commentsArray;
 
-    public Comments(String username) {
+    public Comment(String username) {
         this.username = username;
         this.commentsArray = new ArrayList<>();
     }
@@ -35,7 +35,7 @@ public class Comments {
 
     public static void main(String[] args) {
         Contributor contributor = new Contributor("Alice", "Alice", "Smith");
-        Comments comments = new Comments("Bob");
+        Comment comments = new Comment("Bob");
 
         comments.comment("This is a great idea!", contributor);
         comments.comment("I agree with Alice.", contributor);
