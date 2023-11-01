@@ -1,32 +1,35 @@
 import java.util.ArrayList;
 
 public class Comments {
-    private String username; 
-    private String message;
-    private ArrayList<String> commentsArray;
+    private String user; 
+    private String text;
+    private String dateTime;
+    private ArrayList<Comments> comments; // For nested
 
-    public Comments(String username) {
-        this.username = username;
-        this.commentsArray = new ArrayList<>();
+    public Comments(String user, String text, String dateTime) {
+        this.user = user;
+        this.text = text;
+        this.dateTime = dateTime;
+        this.comments = new ArrayList<>();
     }
 
-    public void comment(String comment, Contributor contributor) {
-        this.commentsArray.add(contributor.getFullName() + ": " + comment);
+    public void addComment(Comments comment) {
+        this.comments.add(comment);
     }
 
-    public void addComments() {
-        this.commentsArray.add(username + ": " + message);
+    public String getUser() {
+        return user;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public ArrayList<String> getCommentsArray() {
-        return commentsArray;
+    public ArrayList<Comments> getComments() {
+        return comments;
     }
 }
