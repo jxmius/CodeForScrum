@@ -78,7 +78,6 @@ public class FileReaderAndWriter {
             projectObject.put("board", project.getBoard());
             projectObject.put("dateTime", project.getDateTime());
 
-            // Save contributors
             JSONArray contributors = new JSONArray();
             for (Contributor contributor : project.getContributors()) {
                 JSONObject contributorObject = new JSONObject();
