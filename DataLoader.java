@@ -12,21 +12,20 @@ public class DataLoader {
         this.userFilePath = userFilePath;
     }
 
-    public ArrayList<Project> getProjects() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(projectFilePath))){
-            return (ArrayList<Project>) objectInputStream.readObject();
+    public <T> ArrayList<T> getData(String filePath) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
+            return (ArrayList<T>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
     }
 
+    public ArrayList<Project> getProjects() {
+        return getData(projectFilePath);
+    }
+
     public ArrayList<User> getUsers() {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(userFilePath))) {
-            return (ArrayList<User>) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+        return getData(userFilePath);
     }
 }

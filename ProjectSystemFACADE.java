@@ -1,3 +1,5 @@
+import java.util.UUID;
+
 public class ProjectSystemFACADE {
         private UserList userList;
         private ProjectList projectList;
@@ -15,15 +17,15 @@ public class ProjectSystemFACADE {
             // Sample logic to validate user
             // This should be enhanced to check from a stored list of users
             if (userName.equals("admin") && password.equals("password")) {
-                return new User(userName, password, password, password);  // Placeholder return
+                return new User(null, userName, password, password, password);  // Placeholder return
             }
             return null;
         }
     
-        public void signingUp(String firstName, String lastName, String userName, String password) {
+        public void signingUp(UUID uuid, String firstName, String lastName, String userName, String password) {
             // Sample logic to sign up a user
             // This should store the user in a persistent storage
-            User newUser = new User(userName, password, password, password); // Placeholder
+            User newUser = new User(uuid, userName, firstName, lastName, password); // Placeholder
             userList.addUser(newUser);
             dataWriter.saveUsers(userList);
         }

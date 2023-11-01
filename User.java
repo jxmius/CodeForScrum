@@ -8,10 +8,10 @@ public class User {
     private String username;
     private String password;
     private ArrayList<Project> projectsList;
-    private boolean userType;  // true for admin, false for regular user
+    private boolean userType;  // true for admin, false for a regular user
 
-    public User(String firstName, String lastName, String username, String password) {
-        this.uuid = UUID.randomUUID();
+    public User(UUID uuid, String firstName, String lastName, String username, String password) {
+        this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -48,6 +48,14 @@ public class User {
         return projectsList;
     }
 
+    public void setUserType(boolean userType) {
+        this.userType = userType;
+    }
+
+    public void setProjectsList(ArrayList<Project> projectsList) {
+        this.projectsList = projectsList;
+    }
+
     public void addProject(Project project) {
         projectsList.add(project);
     }
@@ -56,26 +64,17 @@ public class User {
         projectsList.remove(project);
     }
 
-    public void getContributors(Project project, Contributor contributor) {
-        project.getContributors();
+    public void addContributor(Project project, Contributor contributor) {
+        project.addContributor(contributor);
     }
-
-    public void getComments(Project project, Comment comment) {
-        project.getComments(comment);
-    }
-
-    public void getProjectName(Project project, String projectName) {
-        project.getProjectName();
-    }
-
-    public void getBoard(Project project, Board board) {
-        project.getBoard();
-    }
-
-    public void getDateTime(Project project, String dateTime) {
-        project.getDateTime();
-    } 
 
     
+    public void addComment(Project project, Comments comment) {
+        project.addComment(comment);
+    }
 
+
+    public void editTask(Task task, String newTaskName) {
+        task.setTaskName(newTaskName);
+    }
 }

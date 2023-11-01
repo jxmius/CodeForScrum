@@ -38,7 +38,7 @@ public class Project {
         return comments;
     }
 
-    public ArrayList<Contributor> getContributors(Contributor contributor) {
+    public ArrayList<Contributor> getContributors(Project project, Contributor contributor) {
         return contributors;
     }
 
