@@ -22,7 +22,7 @@ public class ProjectList {
 
     public Project getProject(String keyword) {
         for (Project project : myProjects) {
-            if (project.getKeyword().equals(keyword)) {
+            if (project.getBoard().equals(keyword)) {
                 return project;
             }
         }

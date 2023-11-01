@@ -5,7 +5,7 @@ public class Project {
     private String projectName;
     private String board;
     private String dateTime;
-    private ArrayList<Comment> comments;
+    private ArrayList<Comments> comments;
     private ArrayList<Contributor> contributors;
 
     public Project(String id, String projectName, String board, String dateTime) {
@@ -34,16 +34,15 @@ public class Project {
         return dateTime;
     }
 
-    public ArrayList<Comments> getComments() {
-    public ArrayList<Comment> getComments(Comment comment) {
+    public ArrayList<Comments> getComments(Comments comment) {
         return comments;
     }
 
-    public ArrayList<Contributor> getContributors() {
+    public ArrayList<Contributor> getContributors(Contributor contributor) {
         return contributors;
     }
 
-    public void addComment(Comment comment) {
+    public void addComment(Comments comment) {
         this.comments.add(comment);
     }
 
@@ -67,7 +66,7 @@ public class Project {
         this.dateTime = dateTime;
     }
     
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(ArrayList<Comments> comments) {
         this.comments = comments;
     }
 
