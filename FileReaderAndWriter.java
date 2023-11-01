@@ -1,5 +1,9 @@
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -63,5 +67,60 @@ public class FileReaderAndWriter {
             e.printStackTrace();
             return null;
         }
+    }
+    public static void saveProjects(List<Project> projects) {
+        JSONObject mainObject = new JSONObject();
+        JSONArray projectList = new JSONArray();
+
+        for (Project project : projects) {
+            JSONObject projectObject = new JSONObject();
+            projectObject.put("id", project.getId());
+            projectObject.put("projectName", project.getProjectName());
+            projectObject.put("board", project.getBoard());
+            projectObject.put("dateTime", project.getDateTime());
+
+            // Save contributors
+            JSONArray contributors = new JSONArray();
+            for (Contributor contributor : project.getContributors()) {
+                JSONObject contributorObject = new JSONObject();
+                contributorObject.put("username", contributor.getUsername());
+                contributorObject.put("firstName", contributor.getFirstName());
+                contributorObject.put("lastName", contributor.getLastName());
+                contributors.add(contributorObject);
+            }
+            projectObject.put("contributors", contributors);
+
+            // Save comments
+            JSONArray comments = new JSONArray();
+            for (Comments comment : project.getComments()) {
+                JSONObject commentObject = new JSONObject();
+                commentObject.put("user", comment.getUser());
+                commentObject.put("text", comment.getText());
+                commentObject.put("dateTime", comment.getDateTime());
+
+                JSONArray nestedComments = new JSONArray();
+                for (Comments nestedComment : comment.getComments()) {
+                    JSONObject nestedCommentObject = new JSONObject();
+                    nestedCommentObject.put("user", nestedComment.getUser());
+                    nestedCommentObject.put("text", nestedComment.getText());
+                    nestedCommentObject.put("dateTime", nestedComment.getDateTime());
+                    nestedComments.add(nestedCommentObject);
+                }
+
+                commentObject.put("comments", nestedComments);
+                comments.add(commentObject);
+            }
+            projectObject.put("comments", comments);
+
+            projectList.add(projectObject);
+        }
+
+        mainObject.put("projects", projectList);
+
+        try (FileWriter file = new FileWriter(PROJECTS_FILE_PATH)) {
+            file.write(mainObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }//expand upon this
     }
 }
