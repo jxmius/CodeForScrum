@@ -21,7 +21,6 @@ public class FileReaderAndWriter {
 
             for (Object o : projectsJSON) {
                 JSONObject projectJSON = (JSONObject) o;
-
                 String id = (String) projectJSON.get("id");
                 String projectName = (String) projectJSON.get("projectName");
                 String board = (String) projectJSON.get("board");
@@ -29,24 +28,7 @@ public class FileReaderAndWriter {
                 Project project = new Project(id, projectName, board, dateTime);
 
                 JSONArray commentsJSON = (JSONArray) projectJSON.get("comments");
-                for (Object c : commentsJSON) {
-                    JSONObject commentJSON = (JSONObject) c;
-                    String text = (String) commentJSON.get("text");
-                    String user = (String) commentJSON.get("user");
-                    String commentDateTime = (String) commentJSON.get("dateTime");
-                    Comments comment = new Comments(user, text, commentDateTime);
-                    project.addComment(comment);
-
-                    JSONArray nestedCommentsJSON = (JSONArray) commentJSON.get("comments");
-                    for (Object nestedC : nestedCommentsJSON) {
-                        JSONObject nestedCommentJSON = (JSONObject) nestedC;
-                        String nestedText = (String) nestedCommentJSON.get("text");
-                        String nestedUser = (String) nestedCommentJSON.get("user");
-                        String nestedCommentDateTime = (String) nestedCommentJSON.get("dateTime");
-                        Comments nestedComment = new Comments(nestedUser, nestedText, nestedCommentDateTime);
-                        comment.addComment(nestedComment); // Using addComment for nested comments
-                    }
-                }
+                project.getComments().addAll(loadComments(commentsJSON));
 
                 JSONArray contributorsJSON = (JSONArray) projectJSON.get("contributors");
                 for (Object c : contributorsJSON) {
@@ -60,7 +42,6 @@ public class FileReaderAndWriter {
 
                 projects.add(project);
             }
-
             return projects;
 
         } catch (Exception e) {
@@ -68,6 +49,24 @@ public class FileReaderAndWriter {
             return null;
         }
     }
+
+    private static ArrayList<Comments> loadComments(JSONArray commentsJSON) {
+        ArrayList<Comments> commentsList = new ArrayList<>();
+        for (Object c : commentsJSON) {
+            JSONObject commentJSON = (JSONObject) c;
+            String text = (String) commentJSON.get("text");
+            String user = (String) commentJSON.get("user");
+            String commentDateTime = (String) commentJSON.get("dateTime");
+            Comments comment = new Comments(user, text, commentDateTime);
+
+            JSONArray nestedCommentsJSON = (JSONArray) commentJSON.get("comments");
+            comment.getComments().addAll(loadComments(nestedCommentsJSON));
+            
+            commentsList.add(comment);
+        }
+        return commentsList;
+    }
+    
     public static void saveProjects(List<Project> projects) {
         JSONObject mainObject = new JSONObject();
         JSONArray projectList = new JSONArray();
