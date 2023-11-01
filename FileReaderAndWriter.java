@@ -88,37 +88,33 @@ public class FileReaderAndWriter {
             }
             projectObject.put("contributors", contributors);
 
-            // Save comments
-            JSONArray comments = new JSONArray();
-            for (Comments comment : project.getComments()) {
-                JSONObject commentObject = new JSONObject();
-                commentObject.put("user", comment.getUser());
-                commentObject.put("text", comment.getText());
-                commentObject.put("dateTime", comment.getDateTime());
-
-                JSONArray nestedComments = new JSONArray();
-                for (Comments nestedComment : comment.getComments()) {
-                    JSONObject nestedCommentObject = new JSONObject();
-                    nestedCommentObject.put("user", nestedComment.getUser());
-                    nestedCommentObject.put("text", nestedComment.getText());
-                    nestedCommentObject.put("dateTime", nestedComment.getDateTime());
-                    nestedComments.add(nestedCommentObject);
-                }
-
-                commentObject.put("comments", nestedComments);
-                comments.add(commentObject);
-            }
+            JSONArray comments = saveComments(project.getComments());
             projectObject.put("comments", comments);
 
             projectList.add(projectObject);
         }
-
         mainObject.put("projects", projectList);
 
         try (FileWriter file = new FileWriter(PROJECTS_FILE_PATH)) {
             file.write(mainObject.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
-        }//expand upon this
+        }
+    }
+
+    private static JSONArray saveComments(ArrayList<Comments> commentsList) {
+        JSONArray commentsJSON = new JSONArray();
+        for (Comments comment : commentsList) {
+            JSONObject commentObject = new JSONObject();
+            commentObject.put("user", comment.getUser());
+            commentObject.put("text", comment.getText());
+            commentObject.put("dateTime", comment.getDateTime());
+
+            JSONArray nestedComments = saveComments(comment.getComments());
+            commentObject.put("comments", nestedComments);
+
+            commentsJSON.add(commentObject);
+        }
+        return commentsJSON;
     }
 }
