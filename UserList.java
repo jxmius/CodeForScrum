@@ -88,7 +88,7 @@ public class UserList {
                 String lastName = getField(fields, "lastName");
                 String username = getField(fields, "username");
                 String password = getField(fields, "password");
-                User user = new User(firstName, lastName, username, password);
+                User user = new User(null, firstName, lastName, username, password);
                 parsedUsers.add(user);
                 index = end + 1;
             } else {
@@ -97,6 +97,15 @@ public class UserList {
         }
         return parsedUsers;
     }
+    public User getUserByUsername(String username) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null; // Username not found
+    }
+    
 
     private String getField(String[] fields, String fieldName) {
         for (String field : fields) {
