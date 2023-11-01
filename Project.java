@@ -34,6 +34,7 @@ public class Project {
         return dateTime;
     }
 
+    public ArrayList<Comments> getComments() {
     public ArrayList<Comment> getComments(Comment comment) {
         return comments;
     }
@@ -41,6 +42,37 @@ public class Project {
     public ArrayList<Contributor> getContributors() {
         return contributors;
     }
-}
 
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    public void addContributor(Contributor contributor) {
+        this.contributors.add(contributor);
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setBoard(String board) {
+        this.board = board;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+    
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void setContributors(ArrayList<Contributor> contributors) {
+        this.contributors = contributors;
+    }
+}
 

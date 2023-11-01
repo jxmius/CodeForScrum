@@ -1,17 +1,18 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectList {
-    private ArrayList<Project> myProjects;
+    private static ProjectList instance;
+    private List<Project> myProjects;
 
-    // Private constructor to enforce singleton pattern
     private ProjectList() {
         myProjects = new ArrayList<>();
     }
 
-    // Singleton instance
-    private static ProjectList instance = new ProjectList();
-
     public static ProjectList getInstance() {
+        if (instance == null) {
+            instance = new ProjectList();
+        }
         return instance;
     }
 
@@ -19,18 +20,12 @@ public class ProjectList {
         myProjects.add(project);
     }
 
-    public Project getProject(String keyWord) {
+    public Project getProject(String keyword) {
         for (Project project : myProjects) {
-            if (project.getProjectName().contains(keyWord)) {
+            if (project.getKeyword().equals(keyword)) {
                 return project;
             }
         }
         return null; // Project not found
     }
-
-    public ArrayList<Project> getMyProjects() {
-        return myProjects;
-    }
-
 }
-
