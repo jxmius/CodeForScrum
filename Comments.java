@@ -4,7 +4,7 @@ public class Comments {
     private String user; 
     private String text;
     private String dateTime;
-    private ArrayList<Comments> comments; // For nested
+    private ArrayList<Comments> comments; 
 
     public Comments(String user, String text, String dateTime) {
         this.user = user;
@@ -32,4 +32,5 @@ public class Comments {
     public ArrayList<Comments> getComments() {
         return comments;
     }
+    
 }
