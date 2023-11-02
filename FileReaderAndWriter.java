@@ -9,7 +9,7 @@ import org.json.simple.parser.JSONParser;
 
 public class FileReaderAndWriter {
 
-    private static final String PROJECTS_FILE_PATH = "src/project.json";
+    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/project.json";
 
     public static ArrayList<Project> loadProjects() {
         ArrayList<Project> projects = new ArrayList<>();

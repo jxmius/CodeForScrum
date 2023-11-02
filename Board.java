@@ -9,7 +9,7 @@ public class Board {
         this.columns = new ArrayList<>();
     }
 
-    // Getter and setter methods for the board name
+    // Getter and setter methods for the board names
     public String getBoardName() {
         return boardName;
     }
