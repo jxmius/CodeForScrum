@@ -34,7 +34,7 @@ public class Project {
         return dateTime;
     }
 
-    public ArrayList<Comments> getComments(Comments comment) {
+    public ArrayList<Comments> getComments() {
         return comments;
     }
 
@@ -72,6 +72,11 @@ public class Project {
 
     public void setContributors(ArrayList<Contributor> contributors) {
         this.contributors = contributors;
+    }
+
+
+    public ArrayList<Contributor> getContributors() {
+         return contributors;
     }
 }
 

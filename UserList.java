@@ -6,6 +6,7 @@ public class UserList {
     private static final String JSON_FILE_PATH = "users.json";
     private static UserList instance;
     private List<User> userList;
+    public User[] users;
 
     private UserList() {
         userList = new ArrayList<>();
