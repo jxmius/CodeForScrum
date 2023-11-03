@@ -1,95 +1,121 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Task {
     private String taskName;
     private String taskDate;
     private String taskTime;
     private String taskDescription;
-    private String links;
+    private List<String> links;
     private String taskType;
-    private ArrayList<String> comments;
+    private Contributor assignedUser;
+    private String dueDate;
+    private List<Comments> comments;
+    private List<TaskHistory> taskHistory;
 
-    public Task(String taskName, String taskDate, String taskTime, String taskDescription, String links, String taskType) {
+    public Task(String taskName, String taskDate, String taskTime, String taskDescription,
+                List<String> links, String taskType, Contributor assignedUser, String dueDate) {
         this.taskName = taskName;
         this.taskDate = taskDate;
         this.taskTime = taskTime;
         this.taskDescription = taskDescription;
         this.links = links;
         this.taskType = taskType;
+        this.assignedUser = assignedUser;
+        this.dueDate = dueDate;
         this.comments = new ArrayList<>();
+        this.taskHistory = new ArrayList<>();
     }
 
-    // Getter and Setter methods for attributes (e.g., getTaskName, setTaskName)
+    public void addComment(Comments comment) {
+        this.comments.add(comment);
+    }
+
+    public void addHistory(TaskHistory history) {
+        this.taskHistory.add(history);
+    }
+
+    public void assignUser(Contributor user) {
+        this.assignedUser = user;
+    }
+
     public String getTaskName() {
         return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     public String getTaskDate() {
         return taskDate;
     }
 
-    public String getTaskTime() {
-        return taskTime;
-    }
-
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    public String getLinks() {
-        return links;
-    }
-
-    public String getTaskType() {
-        return taskType;
-    }
-    // Setter methods
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
     public void setTaskDate(String taskDate) {
         this.taskDate = taskDate;
+    }
+
+    public String getTaskTime() {
+        return taskTime;
     }
 
     public void setTaskTime(String taskTime) {
         this.taskTime = taskTime;
     }
 
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
-    public void setLinks(String links) {
+    public List<String> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<String> links) {
         this.links = links;
+    }
+
+    public String getTaskType() {
+        return taskType;
     }
 
     public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
 
-    public void setComments(ArrayList<String> comments) {
-        this.comments = comments;
+    public Contributor getAssignedUser() {
+        return assignedUser;
     }
 
-    public void addComment(String comment) {
-        comments.add(comment);
+    public void setAssignedUser(Contributor assignedUser) {
+        this.assignedUser = assignedUser;
     }
 
-    public ArrayList<String> getComments() {
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public List<Comments> getComments() {
         return comments;
     }
 
-    public void removeComment(int commentIndex) {
-        if (commentIndex >= 0 && commentIndex < comments.size()) {
-            comments.remove(commentIndex);
-        }
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
     }
 
-    @Override
-    public String toString() {
-        return "Task: " + taskName + "\nDate: " + taskDate + "\nTime: " + taskTime
-                + "\nDescription: " + taskDescription + "\nLinks: " + links
-                + "\nType: " + taskType + "\nComments: " + comments;
+    public List<TaskHistory> getTaskHistory() {
+        return taskHistory;
+    }
+
+    public void setTaskHistory(List<TaskHistory> taskHistory) {
+        this.taskHistory = taskHistory;
     }
 }
