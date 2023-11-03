@@ -10,7 +10,7 @@ public class ProjectSystemFACADE {
         this.userList = UserList.getInstance();
         this.projectList = ProjectList.getInstance();
         this.dataWriter = new DataWriter();
-        this.dataLoader = new DataLoader(DataConstants.PROJECTS_FILE_PATH, DataConstants.USERS_FILE_PATH);
+        this.dataLoader = new DataLoader();
     }
 
     public User login(String userName, String password) {
