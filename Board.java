@@ -1,15 +1,31 @@
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Board {
     private String boardName;
-    private ArrayList<Columns> columns;
+    private Map<String, Columns> columnsMap;
 
     public Board(String boardName) {
         this.boardName = boardName;
-        this.columns = new ArrayList<>();
+        this.columnsMap = new LinkedHashMap<>();
     }
 
-    // Getter and setter methods for the board names
+    public void addColumn(String columnName) {
+        this.columnsMap.putIfAbsent(columnName, new Columns(columnName));
+    }
+
+    public boolean removeColumn(String columnName) {
+        return this.columnsMap.remove(columnName) != null;
+    }
+
+    public Columns getColumn(String columnName) {
+        return this.columnsMap.get(columnName);
+    }
+
+    public void setColumn(String columnName, Columns column) {
+        this.columnsMap.put(columnName, column);
+    }
+
     public String getBoardName() {
         return boardName;
     }
@@ -18,30 +34,49 @@ public class Board {
         this.boardName = boardName;
     }
 
-    // Getter and setter methods for columns
-    public ArrayList<Columns> getColumns() {
-        return columns;
+    public Map<String, Columns> getColumnsMap() {
+        return columnsMap;
     }
 
-    public void setColumns(ArrayList<Columns> columns) {
-        this.columns = columns;
+    public void setColumnsMap(Map<String, Columns> columnsMap) {
+        this.columnsMap = columnsMap;
     }
 
-    // Method to add a new column
-    public void addColumn(Columns column) {
-        columns.add(column);
-    }
-
-    // Method to edit an existing column
-    public void editColumn(Columns oldColumn, Columns newColumn) {
-        if (columns.contains(oldColumn)) {
-            int index = columns.indexOf(oldColumn);
-            columns.set(index, newColumn);
+    public void displayBoard() {
+        System.out.println("Board: " + boardName);
+        for (Map.Entry<String, Columns> columnEntry : this.columnsMap.entrySet()) {
+            System.out.println("Column: " + columnEntry.getKey());
+            columnEntry.getValue().displayColumn();
         }
     }
 
-    // Method to delete a column
-    public void deleteColumn(Columns column) {
-        columns.remove(column);
+    //add a task to a specific column for ease
+    public boolean addTaskToColumn(String columnName, Task task) {
+        Columns column = this.columnsMap.get(columnName);
+        if (column != null) {
+            column.addTask(task);
+            return true;
+        }
+        return false;
+    }
+
+    //remove a specific task from a column for ease
+    public boolean removeTaskFromColumn(String columnName, Task task) {
+        Columns column = this.columnsMap.get(columnName);
+        if (column != null) {
+            return column.removeTask(task);
+        }
+        return false;
+    }
+    public boolean moveTask(String fromColumn, String toColumn, Task task) {
+        Columns originColumn = this.columnsMap.get(fromColumn);
+        Columns destinationColumn = this.columnsMap.get(toColumn);
+        if (originColumn != null && destinationColumn != null) {
+            if (originColumn.getTasks().remove(task)) {
+                destinationColumn.addTask(task);
+                return true;
+            }
+        }
+        return false;
     }
 }
