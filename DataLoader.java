@@ -1,6 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.UUID;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataLoader {
     private static final String DATA_FILE_PATH = "data.txt";
@@ -19,19 +25,6 @@ public class DataLoader {
             e.printStackTrace();
         }
         return users;
-    }
-    
-
-    public static void saveUsers(ArrayList<User> users) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
-            for (User user : users) {
-                String userData = formatUser(user);
-                writer.write(userData);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static User parseUser(String userData) {
@@ -54,5 +47,42 @@ public class DataLoader {
         return user.getUuid() + "," + user.getFirstName() + "," + user.getLastName() + ","
                 + user.getUsername() + "," + "," + user.getPassword() + ","
                 + user.isUserTypeAdmin();
+    }
+    public static List<Task> loadTasks(String filePath) {
+        List<Task> tasks = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader(filePath)) {
+            JSONArray tasksArray = (JSONArray) parser.parse(reader);
+            
+            for (Object taskObj : tasksArray) {
+                JSONObject taskJSON = (JSONObject) taskObj;
+                Task task = parseTask(taskJSON);
+                tasks.add(task);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return tasks;
+    }
+    private static Task parseTask(JSONObject taskJSON) {
+        String taskName = (String) taskJSON.get("taskName");
+        String taskDate = (String) taskJSON.get("taskDate");
+        String taskTime = (String) taskJSON.get("taskTime");
+        String taskDescription = (String) taskJSON.get("taskDescription");
+        List<String> links = (JSONArray) taskJSON.getOrDefault("links", new JSONArray());
+        String taskType = (String) taskJSON.get("taskType");
+        JSONObject assignedUserJSON = (JSONObject) taskJSON.get("assignedUser");
+        Contributor assignedUser = parseContributor(assignedUserJSON);
+        String dueDate = (String) taskJSON.get("dueDate");
+
+        return new Task(taskName, taskDate, taskTime, taskDescription, links, taskType, assignedUser, dueDate);
+    }
+    private static Contributor parseContributor(JSONObject contributorJSON) {
+        String username = (String) contributorJSON.get("username");
+        String firstName = (String) contributorJSON.get("firstName");
+        String lastName = (String) contributorJSON.get("lastName");
+        return new Contributor(username, firstName, lastName);
     }
 }

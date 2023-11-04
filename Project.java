@@ -79,4 +79,3 @@ public class Project {
          return contributors;
     }
 }
-
