@@ -2,28 +2,24 @@ import java.util.ArrayList;
 
 public class Columns {
     private String columnName;
-    private ArrayList<String> taskArray;
+    private ArrayList<Task> tasks;
 
     public Columns(String columnName) {
         this.columnName = columnName;
-        this.taskArray = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
-    public void editTasks(int taskIndex, String newTask) {
-        if (taskIndex >= 0 && taskIndex < taskArray.size()) {
-            taskArray.set(taskIndex, newTask);
-        } else {
-            System.out.println("Invalid task index.");
-        }
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
-    public void addTasks(String newTask) {
-        taskArray.add(newTask);
+    public boolean removeTask(Task task) {
+        return this.tasks.remove(task);
     }
 
-    public void deleteTasks(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < taskArray.size()) {
-            taskArray.remove(taskIndex);
+    public void editTask(int taskIndex, Task task) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            tasks.set(taskIndex, task);
         } else {
             System.out.println("Invalid task index.");
         }
@@ -33,31 +29,22 @@ public class Columns {
         return columnName;
     }
 
-    public ArrayList<String> getTaskArray() {
-        return taskArray;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void displayColumn() {
-        System.out.println("Column Name: " + columnName);
-        System.out.println("Tasks:");
-        for (int i = 0; i < taskArray.size(); i++) {
-            System.out.println("Task " + i + ": " + taskArray.get(i));
+        System.out.println("Column: " + columnName);
+        for (Task task : tasks) {
+            System.out.println(task.getTaskName() + " - " + task.getTaskDescription());
         }
-    }
-
-    public static void main(String[] args) {
-        Columns column = new Columns("To-Do");
-
-        column.addTasks("Task 1");
-        column.addTasks("Task 2");
-        column.addTasks("Task 3");
-
-        column.displayColumn();
-
-        column.editTasks(1, "Updated Task 2");
-        column.displayColumn();
-
-        column.deleteTasks(0);
-        column.displayColumn();
     }
 }
