@@ -1,52 +1,60 @@
 {
     "tasks": [
-        {
-            "taskName": "Login Project",
-            "taskDate": "2019-01-01",
-            "taskTime": "12:00",
-            "taskDescription": "Login Project Description",
-            "links": ["https://www.google.com"],
-            "taskType": "Project",
-            "assignedUser": "John Doe",
-            "dueDate": "2019-02-15",
-            "taskHistory": [
-                {
-                    "actionDate": "2019-01-01",
-                    "actionTime": "12:00",
-                    "actionDescription": "Task created by John Doe."
-                }
-            ],
-            "comments": [
-                {
-                    "comment": "This is a comment",
-                    "commentDate": "2019-01-01",
-                    "commentTime": "12:00"
-                }
-            ]
+      {
+        "taskName": "Prototyping",
+        "taskDate": "2023-01-10",
+        "taskTime": "10:15 AM",
+        "taskDescription": "Develop main dashboard",
+        "links": ["https://example.com/dashboard"],
+        "taskType": "Design",
+        "assignedUser": {
+          "username": "john.doe123",
+          "firstName": "John",
+          "lastName": "Doe"
         },
-        {
-            "taskName": "Login Project",
-            "taskDate": "2019-01-01",
-            "taskTime": "12:00",
-            "taskDescription": "Login Project Description",
-            "links": ["https://www.google.com"],
-            "taskType": "Project",
-            "assignedUser": "Jane Smith",
-            "dueDate": "2019-03-10",
-            "taskHistory": [
-                {
-                    "actionDate": "2019-01-01",
-                    "actionTime": "12:00",
-                    "actionDescription": "Task created by Jane Smith."
-                }
-            ],
-            "comments": [
-                {
-                    "comment": "This is a comment",
-                    "commentDate": "2019-01-01",
-                    "commentTime": "12:00"
-                }
-            ]
-        }
+        "dueDate": "2023-01-20",
+        "taskHistory": [
+          {
+            "actionDate": "2023-01-10",
+            "actionTime": "10:15 AM",
+            "actionDescription": "Task created and assigned."
+          }
+        ],
+        "comments": [
+          {
+            "text": "Make sure the you do something",
+            "dateTime": "2023-01-10 10:45 AM",
+            "user": "john.doe123"
+          }
+        ]
+      },
+      {
+        "taskName": "Project 2",
+        "taskDate": "2023-01-11",
+        "taskTime": "02:30 PM",
+        "taskDescription": "Create stuff",
+        "links": ["https://example.com/"],
+        "taskType": "Development",
+        "assignedUser": {
+          "username": "jane.doe",
+          "firstName": "Jane",
+          "lastName": "Doe"
+        },
+        "dueDate": "2023-01-25",
+        "taskHistory": [
+          {
+            "actionDate": "2023-01-11",
+            "actionTime": "02:30 PM",
+            "actionDescription": "I did something"
+          }
+        ],
+        "comments": [
+          {
+            "text": "security is top priority.",
+            "dateTime": "2023-01-11 03:00 PM",
+            "user": "jane.doe"
+          }
+        ]
+      }
     ]
-}
+  }
