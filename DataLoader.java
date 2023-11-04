@@ -4,10 +4,11 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.util.List;
 
 public class DataLoader {
-    private static final String DATA_FILE_PATH = "CodeForScrum/lib/user.json";
+    private static final String DATA_FILE_PATH = "data.txt";
     private static final String TASKS_FILE_PATH = "CodeForScrum/lib/task.json";
 
     public static ArrayList<User> loadUsers() {
