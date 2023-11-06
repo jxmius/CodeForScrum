@@ -32,9 +32,4 @@ public class Comments {
     public ArrayList<Comments> getComments() {
         return comments;
     }
-
-    public Object getMessage() {
-        return null;
-    }
-    
 }

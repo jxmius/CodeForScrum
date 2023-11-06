@@ -44,10 +44,12 @@ public class Board {
 
     public void displayBoard() {
         System.out.println("Board: " + boardName);
-        for (Map.Entry<String, Columns> columnEntry : this.columnsMap.entrySet()) {
-            System.out.println("Column: " + columnEntry.getKey());
-            columnEntry.getValue().displayColumn();
-        }
+        columnsMap.forEach((columnName, columns) -> {
+            System.out.println("Column: " + columnName);
+            columns.getTasks().forEach(task -> {
+                System.out.println("Task: " + task.getTaskName());
+            });
+        });
     }
 
     //add a task to a specific column for ease

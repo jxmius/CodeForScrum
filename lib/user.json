@@ -1,0 +1,31 @@
+{
+    "userList": [
+      {
+        "uuid": "UUID1",
+        "username": "john.doe123",
+        "firstName": "John",
+        "lastName": "Doe",
+        "userEmail": "john.doe@gmail.com",
+        "password": "hashed_password",
+        "usertype": "Regular",
+        "projectIds": [
+          "uuid-project-a",
+          "uuid-project-b"
+        ]
+      },
+      {
+        "uuid": "UUID2",
+        "username": "jane.smith456",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "userEmail": "janesmith456@gmail.com",
+        "password": "hashed_password",
+        "usertype": "Admin",
+        "projectIds": [
+          "uuid-project-b",
+          "uuid-project-c"
+        ]
+      }
+    ]
+  }
+  

@@ -1,46 +1,71 @@
-import java.util.UUID;
+import java.io.PrintWriter;
+import java.util.Optional;
 
 public class ProjectSystemFACADE {
-    private UserList userList;
     private ProjectList projectList;
-    private DataWriter dataWriter;
-    private DataLoader dataLoader;
+    private UserList userList; // not working??
 
-    public ProjectSystemFACADE() {
-        this.userList = UserList.getInstance();
-        this.projectList = ProjectList.getInstance();
-        this.dataWriter = new DataWriter();
-        this.dataLoader = new DataLoader();
+    public ProjectSystemFacade() {
+        this.projectList = ProjectList.getInstance(); 
+        this.userList = UserList.getInstance(); 
     }
 
-    public User login(String userName, String password) {
-        // In a real system, validate the user against a list of registered users or a database.
-        // Handle cases where the login is successful or not.
-        User user = userList.getUserByUsername(userName);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        } else {
-            return null; // Login failed
+    public void openProject(String projectName) {
+        // Implementation 
+    }
+
+    public void addTaskToProject(String projectName, String taskName, String assigneeUsername, String taskDescription) {
+        Project project = findProjectByName(projectName);
+        User assignee = userList.getUser(assigneeUsername);
+        Contributor contributor = new Contributor(assignee.getUsername(), assignee.getFirstName(), assignee.getLastName());
+        Task newTask = new Task(taskName, /* other params */);
+        newTask.assignUser(contributor);
+        project.getBoard().addTaskToColumn("To Do", newTask);
+    }
+
+    public void addCommentToTask(String projectName, String taskName, String commentText) {
+        Task task = findTaskByName(projectName, taskName);
+        if (task != null) {
+            Comments comment = new Comments("Atticus Madden", commentText, /* current dateTime */);
+            task.addComment(comment);
         }
     }
 
-    public boolean signUp(String firstName, String lastName, String userName, String password) {
-        // Check if the username is already in use.
-        if (userList.getUserByUsername(userName) != null) {
-            return false; // Username already in use
-        }
-        
-        // Create a new user and save it.
-        UUID uuid = UUID.randomUUID();
-        User newUser = new User(uuid, userName, firstName, lastName, password);
-        userList.addUser(newUser);
-        dataWriter.saveUsers(userList);
-        
-        return true; // Signup successful
+    public void moveTaskToColumn(String projectName, String taskName, String columnName) {
+        Project project = findProjectByName(projectName);
+        Task task = findTaskByName(projectName, taskName);
+        project.getBoard().moveTask(/* fromColumn */, columnName, task);
     }
 
-    public Project getProject(String projectName) {
-        // Retrieve a project from the list.
-        return projectList.getProject(projectName);
+    public void addColumnToBoard(String projectName, String columnName) {
+        Project project = findProjectByName(projectName);
+        project.getBoard().addColumn(columnName);
+    }
+
+    public void printScrumBoardToFile(String projectName, String filename) {
+        Project project = findProjectByName(projectName);
+        Board board = project.getBoard();
+
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            writer.println("SCRUM Board for: " + projectName);
+            board.getColumnsMap().forEach((column, tasks) -> {
+                writer.println("Column: " + column);
+                tasks.getTasks().forEach(task -> {
+                    writer.println("  Task: " + task.getTaskName());
+                });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Project findProjectByName(String projectName) {
+        // Implementation
+        return null;
+    }
+
+    private Task findTaskByName(String projectName, String taskName) {
+        // Implementation
+        return null;
     }
 }

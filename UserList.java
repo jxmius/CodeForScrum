@@ -1,12 +1,16 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class UserList {
     private static final String JSON_FILE_PATH = "users.json";
     private static UserList instance;
     private List<User> userList;
-    public User[] users;
 
     private UserList() {
         userList = new ArrayList<>();
@@ -36,85 +40,63 @@ public class UserList {
         return new ArrayList<>(userList);
     }
 
-    private void loadUsersFromJson() {
+ private void loadUsersFromJson() {
+        JSONParser parser = new JSONParser();
         try (BufferedReader reader = new BufferedReader(new FileReader(JSON_FILE_PATH))) {
-            StringBuilder jsonContent = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonContent.append(line);
+            JSONArray usersArray = (JSONArray) parser.parse(reader);
+            for (Object userObj : usersArray) {
+                JSONObject userJSON = (JSONObject) userObj;
+                User user = parseUser(userJSON);
+                if (user != null) {
+                    userList.add(user);
+                }
             }
-            userList = parseJson(jsonContent.toString());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void saveUsersToJson() {
-        String jsonContent = generateJson(userList);
+        JSONArray usersArray = new JSONArray();
+        for (User user : userList) {
+            JSONObject userObject = new JSONObject();
+            userObject.put("uuid", user.getUuid().toString());
+            userObject.put("firstName", user.getFirstName());
+            userObject.put("lastName", user.getLastName());
+            userObject.put("username", user.getUsername());
+            userObject.put("password", user.getPassword());
+            userObject.put("userType", user.isUserTypeAdmin());
+            JSONArray projectIdsArray = new JSONArray();
+            for (UUID projectId : user.getProjectIds()) {
+                projectIdsArray.add(projectId.toString());
+            }
+            userObject.put("projectIds", projectIdsArray);
+            usersArray.add(userObject);
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(JSON_FILE_PATH))) {
-            writer.write(jsonContent);
+            writer.write(usersArray.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private String generateJson(List<User> userList) {
-        StringBuilder json = new StringBuilder();
-        json.append("[");
-        for (User user : userList) {
-            if (json.length() > 1) {
-                json.append(",");
-            }
-            json.append("{");
-            json.append("\"firstName\":\"").append(user.getFirstName()).append("\",");
-            json.append("\"lastName\":\"").append(user.getLastName()).append("\",");
-            json.append("\"username\":\"").append(user.getUsername()).append("\",");
-            json.append("\"password\":\"").append(user.getPassword()).append("\"");
-            json.append("}");
+    private User parseUser(JSONObject userJSON) {
+        UUID uuid = UUID.fromString((String) userJSON.get("uuid"));
+        String firstName = (String) userJSON.get("firstName");
+        String lastName = (String) userJSON.get("lastName");
+        String username = (String) userJSON.get("username");
+        String password = (String) userJSON.get("password");
+        boolean userType = (boolean) userJSON.get("userType");
+        User user = new User(uuid, firstName, lastName, username, password);
+        user.setUserType(userType);
+        JSONArray projectIdsJSON = (JSONArray) userJSON.get("projectIds");
+        List<UUID> projectIds = new ArrayList<>();
+        for (Object projectIdObj : projectIdsJSON) {
+            UUID projectId = UUID.fromString((String) projectIdObj);
+            projectIds.add(projectId);
         }
-        json.append("]");
-        return json.toString();
-    }
-
-    private List<User> parseJson(String json) {
-        List<User> parsedUsers = new ArrayList<>();
-        int index = 0;
-        while (index < json.length()) {
-            int start = json.indexOf("{", index);
-            int end = json.indexOf("}", start);
-            if (start != -1 && end != -1) {
-                String userJson = json.substring(start, end + 1);
-                String[] fields = userJson.split(",");
-                String firstName = getField(fields, "firstName");
-                String lastName = getField(fields, "lastName");
-                String username = getField(fields, "username");
-                String password = getField(fields, "password");
-                User user = new User(null, firstName, lastName, username, password);
-                parsedUsers.add(user);
-                index = end + 1;
-            } else {
-                break;
-            }
-        }
-        return parsedUsers;
-    }
-    public User getUserByUsername(String username) {
-        for (User user : userList) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null; // Username not found
-    }
-    
-
-    private String getField(String[] fields, String fieldName) {
-        for (String field : fields) {
-            String[] parts = field.split(":");
-            if (parts[0].trim().equals("\"" + fieldName + "\"")) {
-                return parts[1].trim().replace("\"", "");
-            }
-        }
-        return null;
+        user.setProjectIds(projectIds);
+        return user;
     }
 }

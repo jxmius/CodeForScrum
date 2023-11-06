@@ -2,6 +2,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -11,40 +13,43 @@ public class DataWriter {
     private static final String TASKS_FILE_PATH = "CodeForScrum/lib/task.json";
 
 
+    public static void saveUsers(List<User> users) throws IOException {
+        JSONArray usersArray = new JSONArray();
+        for (User user : users) {
+            JSONObject userObject = new JSONObject();
+            userObject.put("uuid", user.getUuid().toString());
+            userObject.put("firstName", user.getFirstName());
+            userObject.put("lastName", user.getLastName());
+            userObject.put("username", user.getUsername());
+            userObject.put("password", user.getPassword()); // Passwords should be hashed
+            userObject.put("userType", user.isUserTypeAdmin() ? "Admin" : "Regular");
 
-    public static void saveUsers(UserList userList) {
-        StringBuilder userJson = new StringBuilder();
-        userJson.append("[");
-        for (User user : userList.users) {
-            if (userJson.length() > 1) {
-                userJson.append(",");
+            JSONArray projectIdsArray = new JSONArray();
+            for (UUID projectId : user.getProjectIds()) {
+                projectIdsArray.add(projectId.toString());
             }
-            userJson.append("{");
-            userJson.append("\"firstName\":\"").append(user.getFirstName()).append("\",");
-            userJson.append("\"lastName\":\"").append(user.getLastName()).append("\",");
-            userJson.append("\"username\":\"").append(user.getUsername()).append("\",");
-            userJson.append("\"userEmail\":\"").append(user.getUsername()).append("\",");
-            userJson.append("\"password\":\"").append(user.getPassword()).append("\"");
-            userJson.append("}");
+            userObject.put("projectIds", projectIdsArray);
+
+            usersArray.add(userObject);
         }
-        userJson.append("]");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_PATH))) {
-            writer.write(userJson.toString());
+            writer.write(usersArray.toJSONString());
             System.out.println("User data saved successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-        public static void saveTasks(List<Task> tasks) throws IOException {
+
+    
+    public static void saveTasks(List<Task> tasks) {
         JSONArray tasksArray = new JSONArray();
         for (Task task : tasks) {
-            JSONObject taskObject = taskToJSONObject(task);
-            tasksArray.add(taskObject);
+            tasksArray.add(taskToJSONObject(task));
         }
 
         try (FileWriter file = new FileWriter(TASKS_FILE_PATH)) {
             file.write(tasksArray.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,0 +1,75 @@
+{
+    "projects": [
+      {
+        "id": "uuid1",
+        "projectName": "Design Project",
+        "board": {
+          "boardName": "Main Board",
+          "columnsMap": {
+            "ToDo": {
+              "columnName": "ToDo",
+              "tasks": [
+                {
+                  "taskName": "Design Logo",
+                  "taskDate": "2023-01-01",
+                  "taskTime": "10:00",
+                  "taskDescription": "Create a logo for the new app.",
+                  "links": ["https://link-to-design-specs.com"],
+                  "taskType": "Design",
+                  "assignedUser": {
+                    "username": "jane.doe",
+                    "firstName": "Jane",
+                    "lastName": "Doe"
+                  },
+                  "dueDate": "2023-02-01",
+                  "comments": [
+                    {
+                      "text": "Great start, but needs more contrast.",
+                      "dateTime": "2023-01-02 09:00",
+                      "user": "john.doe"
+                    }
+                  ],
+                  "taskHistory": [
+                    {
+                      "actionDate": "2023-01-03",
+                      "actionTime": "11:00",
+                      "actionDescription": "Changed logo colors for more contrast."
+                    }
+                  ]
+                }
+              ]
+            },
+            "InProgress": {
+              "columnName": "InProgress",
+              "tasks": []
+            },
+            "Done": {
+              "columnName": "Done",
+              "tasks": []
+            }
+          }
+        },
+        "dateTime": "2023-01-01 10:30 AM",
+        "comments": [
+          {
+            "text": "Initial comment on the project",
+            "dateTime": "2023-01-01 10:30 AM",
+            "user": "John Doe"
+          }
+        ],
+        "contributors": [
+          {
+            "username": "john.doe",
+            "firstName": "John",
+            "lastName": "Doe"
+          },
+          {
+            "username": "jane.doe",
+            "firstName": "Jane",
+            "lastName": "Doe"
+          }
+        ]
+      }
+    ]
+  }
+  
