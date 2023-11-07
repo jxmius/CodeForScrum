@@ -21,9 +21,8 @@ public class DataWriter {
             userObject.put("firstName", user.getFirstName());
             userObject.put("lastName", user.getLastName());
             userObject.put("username", user.getUsername());
-            userObject.put("password", user.getPassword()); // Passwords should be hashed
-            userObject.put("userType", user.isUserTypeAdmin() ? "Admin" : "Regular");
-
+            userObject.put("password", user.getPassword());
+            userObject.put("userType", user.isUserTypeAdmin());
             JSONArray projectIdsArray = new JSONArray();
             for (UUID projectId : user.getProjectIds()) {
                 projectIdsArray.add(projectId.toString());
