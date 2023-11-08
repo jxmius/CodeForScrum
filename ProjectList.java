@@ -29,7 +29,7 @@ public class ProjectList {
     public void addProject(Project project) throws IOException {
         if (getProjectById(project.getId()) == null) {
             projects.add(project);
-            DataWriter.saveProjects(projects);  // Needs (re) implementation
+            DataWriter.saveProjects(projects);  // saveProjects Needs (re-)implementation
         } else {
             throw new IllegalArgumentException("Project already exists with the ID: " + project.getId());
         }
@@ -39,7 +39,7 @@ public class ProjectList {
         Project project = getProjectById(projectId);
         if (project != null) {
             projects.remove(project);
-            DataWriter.saveProjects(projects);  // Needs (re) implementation
+            DataWriter.saveProjects(projects);  // Needs (re-)implementation
         } else {
             throw new IllegalArgumentException("Project not found with ID: " + projectId);
         }
@@ -51,6 +51,6 @@ public class ProjectList {
 
 
     public void saveProjects() throws IOException {
-        DataWriter.saveProjects(projects);  // Needs implementation
+        DataWriter.saveProjects(projects);  // Needs (re-)implementation
     }
 }
