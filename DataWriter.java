@@ -18,26 +18,26 @@ public class DataWriter {
         for (User user : users) {
             JSONObject userObject = new JSONObject();
             userObject.put("uuid", user.getUuid().toString());
+            userObject.put("username", user.getUsername());
             userObject.put("firstName", user.getFirstName());
             userObject.put("lastName", user.getLastName());
-            userObject.put("username", user.getUsername());
+            userObject.put("userEmail", user.getUserEmail());
             userObject.put("password", user.getPassword());
             userObject.put("userType", user.isUserTypeAdmin());
+            
             JSONArray projectIdsArray = new JSONArray();
             for (UUID projectId : user.getProjectIds()) {
                 projectIdsArray.add(projectId.toString());
             }
             userObject.put("projectIds", projectIdsArray);
-
+            
             usersArray.add(userObject);
         }
-
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_PATH))) {
             writer.write(usersArray.toJSONString());
-            System.out.println("User data saved successfully.");
         }
     }
-
     
     public static void saveTasks(List<Task> tasks) {
         JSONArray tasksArray = new JSONArray();

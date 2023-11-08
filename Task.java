@@ -13,8 +13,7 @@ public class Task {
     private List<Comments> comments;
     private List<TaskHistory> taskHistory;
 
-    public Task(String taskName, String taskDate, String taskTime, String taskDescription,
-                List<String> links, String taskType, Contributor assignedUser, String dueDate) {
+    public Task(String taskName, String taskDate, String taskTime, String taskDescription, List<String> links, String taskType, Contributor assignedUser, String dueDate) {
         this.taskName = taskName;
         this.taskDate = taskDate;
         this.taskTime = taskTime;
