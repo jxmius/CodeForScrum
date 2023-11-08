@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class UserDriver 
 { public static void main(String[] args) 
-    { User user1 = new User(UUID.randomUUID(), "John", "Doe", "john_doe", "john_doe_password"); 
+    { User user1 = new User(UUID.randomUUID(), "John", "Doe", "john_doe", "john_doe_password", null, false); 
     System.out.println("User1 UUID: " + user1.getUuid());
      System.out.println("User1 First Name: " + user1.getFirstName());
       System.out.println("User1 Last Name: " + user1.getLastName());

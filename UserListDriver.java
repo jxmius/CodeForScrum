@@ -1,31 +1,62 @@
-import java.util.List;
+import java.io.IOException;
 import java.util.UUID;
+
+import org.json.simple.parser.ParseException;
 
 public class UserListDriver {
     public static void main(String[] args) {
-        // Get the UserList instance
-        UserList userList = UserList.getInstance();
+        try {
+            // Get the singleton instance of UserList
+            UserList userList = UserList.getInstance();
 
-        // Create a new user
-        User user1 = new User(UUID.randomUUID(), "John", "Doe", "johndoe", "password123");
-        user1.setUserType(false); // Regular user
+            // Create a new user
+            User newUser1 = new User(UUID.randomUUID(), "John", "Doe", "johndoe", "password1", null, false);
+            User newUser2 = new User(UUID.randomUUID(), "Alice", "Smith", "alicesmith", "password2", null, false);
 
-        // Add the user to the list
-        userList.addUser(user1);
+            // Add users to the list
+            userList.addUser(newUser1);
+            userList.addUser(newUser2);
 
-        // Get a user by username
-        User retrievedUser = userList.getUser("johndoe");
-        if (retrievedUser != null) {
-            System.out.println("Retrieved User: " + retrievedUser.getFirstName() + " " + retrievedUser.getLastName());
-        } else {
-            System.out.println("User not found.");
-        }
+            // Print the list of users
+            System.out.println("List of Users:");
+            for (User user : userList.getUsers()) {
+                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
+            }
 
-        // Get all users
-        List<User> allUsers = userList.getAllUsers();
-        System.out.println("All Users:");
-        for (User user : allUsers) {
-            System.out.println(user.getFirstName() + " " + user.getLastName());
+            // Update a user
+            UUID userIdToUpdate = newUser1.getUuid();
+            User updatedUser = new User(userIdToUpdate, "John", "Doe", "newjohndoe", "newpassword", null, false);
+            userList.updateUser(userIdToUpdate, updatedUser);
+
+            // Print the updated list of users
+            System.out.println("\nUpdated List of Users:");
+            for (User user : userList.getUsers()) {
+                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
+            }
+
+            // Delete a user
+            UUID userIdToDelete = newUser2.getUuid();
+            userList.deleteUser(userIdToDelete);
+
+            // Print the updated list of users after deletion
+            System.out.println("\nUpdated List of Users after Deletion:");
+            for (User user : userList.getUsers()) {
+                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
+            }
+
+            // Search for a user by username
+            String searchUsername = "newjohndoe";
+            User foundUser = userList.getUserByUsername(searchUsername);
+            if (foundUser != null) {
+                System.out.println("\nFound User by Username: " + foundUser.getFirstName() + " " + foundUser.getLastName());
+            } else {
+                System.out.println("\nUser not found by username: " + searchUsername);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }

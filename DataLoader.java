@@ -55,6 +55,7 @@ public class DataLoader {
         }
         return projects;
     }
+   
     private static User parseUser(JSONObject userJSON) {
         UUID uuid = UUID.fromString((String) userJSON.get("uuid"));
         String firstName = (String) userJSON.get("firstName");
@@ -62,7 +63,7 @@ public class DataLoader {
         String username = (String) userJSON.get("username");
         String password = (String) userJSON.get("password"); 
         boolean userType = (boolean) userJSON.getOrDefault("userType", false);
-        User user = new User(uuid, firstName, lastName, username, password);
+        User user = new User(uuid, firstName, lastName, username, password, password, userType);
         user.setUserType(userType);
         return user;
     }
