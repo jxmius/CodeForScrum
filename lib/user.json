@@ -7,7 +7,7 @@
         "lastName": "Doe",
         "userEmail": "john.doe@gmail.com",
         "password": "hashed_password",
-        "usertype": "Regular",
+        "usertype": true,
         "projectIds": [
           "uuid-project-a",
           "uuid-project-b"
@@ -20,7 +20,7 @@
         "lastName": "Smith",
         "userEmail": "janesmith456@gmail.com",
         "password": "hashed_password",
-        "usertype": "Admin",
+        "usertype": false,
         "projectIds": [
           "uuid-project-b",
           "uuid-project-c"

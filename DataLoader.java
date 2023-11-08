@@ -33,9 +33,9 @@ public class DataLoader {
         String lastName = (String) userJSON.get("lastName");
         String username = (String) userJSON.get("username");
         String password = (String) userJSON.get("password"); 
-        boolean isAdmin = "Admin".equals((String) userJSON.get("userType"));
+        boolean userType = (boolean) userJSON.getOrDefault("userType", false); // default to false (Regular) if not specified
         User user = new User(uuid, firstName, lastName, username, password);
-        user.setUserType(isAdmin);
+        user.setUserType(userType);
         return user;
     }
 
