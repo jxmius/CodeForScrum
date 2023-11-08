@@ -6,7 +6,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class DataLoader {
@@ -131,4 +133,58 @@ public class DataLoader {
         }
         return taskHistoryList;
     }
+    private static Project parseProject(JSONObject projectJSON) {
+        UUID id = UUID.fromString((String) projectJSON.get("id"));
+        String projectName = (String) projectJSON.get("projectName");
+        String dateTime = (String) projectJSON.get("dateTime");
+        
+        Board board = parseBoard((JSONObject) projectJSON.get("board"));
+        List<Comments> comments = parseComments((JSONArray) projectJSON.get("comments"));
+        List<Contributor> contributors = parseContributors((JSONArray) projectJSON.get("contributors"));
+
+        Project project = new Project(id, projectName, board, dateTime);
+        project.setComments(new ArrayList<>(comments));
+        project.setContributors(new ArrayList<>(contributors));
+
+        return project;
+    }
+        private static Board parseBoard(JSONObject boardJSON) {
+        String boardName = (String) boardJSON.get("boardName");
+        Board board = new Board(boardName);
+        
+        JSONObject columnsMapJSON = (JSONObject) boardJSON.get("columnsMap");
+        Map<String, Columns> columnsMap = new LinkedHashMap<>();
+        for (Object key : columnsMapJSON.keySet()) {
+            String columnName = (String) key;
+            Columns column = parseColumn((JSONObject) columnsMapJSON.get(columnName));
+            columnsMap.put(columnName, column);
+        }
+        
+        board.setColumnsMap(columnsMap);
+        return board;
+    }
+
+    private static Columns parseColumn(JSONObject columnJSON) {
+        String columnName = (String) columnJSON.get("columnName");
+        JSONArray tasksJSON = (JSONArray) columnJSON.get("tasks");
+        
+        Columns column = new Columns(columnName);
+        for (Object taskObj : tasksJSON) {
+            Task task = parseTask((JSONObject) taskObj);
+            column.addTask(task);
+        }
+        
+        return column;
+    }
+
+    private static List<Contributor> parseContributors(JSONArray contributorsJSON) {
+        List<Contributor> contributors = new ArrayList<>();
+        for (Object contributorObj : contributorsJSON) {
+            JSONObject contributorJSON = (JSONObject) contributorObj;
+            Contributor contributor = parseContributor(contributorJSON);
+            contributors.add(contributor);
+        }
+        return contributors;
+    }
+
 }
