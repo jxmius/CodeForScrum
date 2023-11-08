@@ -12,6 +12,7 @@ import java.util.UUID;
 public class DataLoader {
     private static final String USER_FILE_PATH = "CodeForScrum/lib/users.json";
     private static final String TASKS_FILE_PATH = "CodeForScrum/lib/tasks.json";
+    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json";
 
     public static List<User> loadUsers() throws IOException, ParseException {
         List<User> users = new ArrayList<>();
@@ -27,18 +28,6 @@ public class DataLoader {
         return users;
     }
 
-    private static User parseUser(JSONObject userJSON) {
-        UUID uuid = UUID.fromString((String) userJSON.get("uuid"));
-        String firstName = (String) userJSON.get("firstName");
-        String lastName = (String) userJSON.get("lastName");
-        String username = (String) userJSON.get("username");
-        String password = (String) userJSON.get("password"); 
-        boolean userType = (boolean) userJSON.getOrDefault("userType", false); // default to false (Regular) if not specified
-        User user = new User(uuid, firstName, lastName, username, password);
-        user.setUserType(userType);
-        return user;
-    }
-
     public static List<Task> loadTasks() throws IOException, ParseException {
         List<Task> tasks = new ArrayList<>();
         JSONParser parser = new JSONParser();
@@ -51,6 +40,31 @@ public class DataLoader {
             }
         }
         return tasks;
+    }
+
+    public static List<Project> loadProjects() throws IOException, ParseException {
+        List<Project> projects = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader(PROJECTS_FILE_PATH)) {
+            JSONArray projectsArray = (JSONArray) parser.parse(reader);
+            for (Object projectObj : projectsArray) {
+                JSONObject projectJSON = (JSONObject) projectObj;
+                Project project = parseProject(projectJSON);
+                projects.add(project);
+            }
+        }
+        return projects;
+    }
+    private static User parseUser(JSONObject userJSON) {
+        UUID uuid = UUID.fromString((String) userJSON.get("uuid"));
+        String firstName = (String) userJSON.get("firstName");
+        String lastName = (String) userJSON.get("lastName");
+        String username = (String) userJSON.get("username");
+        String password = (String) userJSON.get("password"); 
+        boolean userType = (boolean) userJSON.getOrDefault("userType", false);
+        User user = new User(uuid, firstName, lastName, username, password);
+        user.setUserType(userType);
+        return user;
     }
 
     private static Task parseTask(JSONObject taskJSON) {
