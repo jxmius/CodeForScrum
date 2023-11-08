@@ -12,7 +12,7 @@ import java.util.UUID;
 public class DataLoader {
     private static final String USER_FILE_PATH = "CodeForScrum/lib/users.json";
     private static final String TASKS_FILE_PATH = "CodeForScrum/lib/tasks.json";
-    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json"; // Add the path for projects JSON file
+    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json";
 
     public static List<User> loadUsers() throws IOException, ParseException {
         List<User> users = new ArrayList<>();

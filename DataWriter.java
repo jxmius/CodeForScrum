@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 public class DataWriter {
     private static final String USER_FILE_PATH = "CodeForScrum/lib/users.json";
     private static final String TASKS_FILE_PATH = "CodeForScrum/lib/task.json";
-    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json"; // Add the correct path for your projects file
+    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json";
 
 //user side of stuff
     public static void saveUsers(List<User> users) throws IOException {
@@ -43,6 +43,7 @@ public class DataWriter {
     }
     
     public static void saveTasks(List<Task> tasks) {
+
         JSONArray tasksArray = new JSONArray();
         for (Task task : tasks) {
             tasksArray.add(taskToJSONObject(task));
