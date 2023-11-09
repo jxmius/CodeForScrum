@@ -10,8 +10,8 @@ public class UserListDriver {
             UserList userList = UserList.getInstance();
 
             // Create a new user
-            User newUser1 = new User(UUID.randomUUID(), "John", "Doe", "johndoe", "password1", null, false);
-            User newUser2 = new User(UUID.randomUUID(), "Alice", "Smith", "alicesmith", "password2", null, false);
+            User newUser1 = new User(UUID.randomUUID(), "John", "Doe", "johndoe", "johndoe@email.com", "password", false);
+            User newUser2 = new User(UUID.randomUUID(), "Alice", "Smith", "alicesmith", "johndoe@email.com", "Password2", false);
 
             // Add users to the list
             userList.addUser(newUser1);
@@ -25,7 +25,7 @@ public class UserListDriver {
 
             // Update a user
             UUID userIdToUpdate = newUser1.getUuid();
-            User updatedUser = new User(userIdToUpdate, "John", "Doe", "newjohndoe", "newpassword", null, false);
+            User updatedUser = new User(userIdToUpdate, "John", "Doe", "newjohndoe", "johndoe@email.com", "password", false);
             userList.updateUser(userIdToUpdate, updatedUser);
 
             // Print the updated list of users
