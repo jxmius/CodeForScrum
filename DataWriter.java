@@ -11,9 +11,9 @@ import org.json.simple.JSONObject;
 
 
 public class DataWriter {
-    private static final String USER_FILE_PATH = "CodeForScrum/lib/users.json";
-    private static final String TASKS_FILE_PATH = "CodeForScrum/lib/task.json";
-    private static final String PROJECTS_FILE_PATH = "CodeForScrum/lib/projects.json";
+    private static final String USER_FILE_PATH = "lib/user.json";
+    private static final String TASKS_FILE_PATH = "lib/task.json";
+    private static final String PROJECTS_FILE_PATH = "lib/projects.json";
 
 //user side of stuff
     public static void saveUsers(List<User> users) throws IOException {

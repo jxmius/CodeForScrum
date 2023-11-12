@@ -1,62 +1,51 @@
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
-
 import org.json.simple.parser.ParseException;
 
 public class UserListDriver {
+
     public static void main(String[] args) {
         try {
-            // Get the singleton instance of UserList
+            // Init
             UserList userList = UserList.getInstance();
 
-            // Create a new user
-            User newUser1 = new User(UUID.randomUUID(), "John", "Doe", "johndoe", "johndoe@email.com", "password", false);
-            User newUser2 = new User(UUID.randomUUID(), "Alice", "Smith", "alicesmith", "johndoe@email.com", "Password2", false);
+            // Create new
+            UUID userId = UUID.randomUUID();
+            User newUser = new User(userId, "testuser", "Test", "User", "test@example.com", "password123", false);
 
-            // Add users to the list
-            userList.addUser(newUser1);
-            userList.addUser(newUser2);
+            // Add 
+            System.out.println("Adding a new user...");
+            userList.addUser(newUser);
 
-            // Print the list of users
-            System.out.println("List of Users:");
-            for (User user : userList.getUsers()) {
-                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
-            }
+            // Display
+            System.out.println("Current users:");
+            displayUsers(userList.getUsers());
 
-            // Update a user
-            UUID userIdToUpdate = newUser1.getUuid();
-            User updatedUser = new User(userIdToUpdate, "John", "Doe", "newjohndoe", "johndoe@email.com", "password", false);
-            userList.updateUser(userIdToUpdate, updatedUser);
+            // Update
+            System.out.println("Updating user...");
+            User updatedUser = new User(userId, "updateduser", "Updated", "User", "updated@example.com", "newpassword", true);
+            userList.updateUser(userId, updatedUser);
 
-            // Print the updated list of users
-            System.out.println("\nUpdated List of Users:");
-            for (User user : userList.getUsers()) {
-                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
-            }
+            // Display
+            System.out.println("Users after update:");
+            displayUsers(userList.getUsers());
 
-            // Delete a user
-            UUID userIdToDelete = newUser2.getUuid();
-            userList.deleteUser(userIdToDelete);
+            // Delete user
+            System.out.println("Deleting user...");
+            userList.deleteUser(userId);
 
-            // Print the updated list of users after deletion
-            System.out.println("\nUpdated List of Users after Deletion:");
-            for (User user : userList.getUsers()) {
-                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getUsername() + ")");
-            }
+            System.out.println("Users after deletion:");
+            displayUsers(userList.getUsers());
 
-            // Search for a user by username
-            String searchUsername = "newjohndoe";
-            User foundUser = userList.getUserByUsername(searchUsername);
-            if (foundUser != null) {
-                System.out.println("\nFound User by Username: " + foundUser.getFirstName() + " " + foundUser.getLastName());
-            } else {
-                System.out.println("\nUser not found by username: " + searchUsername);
-            }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        }
+    }
+
+    private static void displayUsers(List<User> users) {
+        for (User user : users) {
+            System.out.println("User: " + user.getUsername() + ", " + user.getFirstName() + " " + user.getLastName());
         }
     }
 }
