@@ -1,0 +1,22 @@
+[
+  {
+      "uuid": "123e4567-e89b-12d3-a456-426614174000",
+      "username": "john_doe",
+      "firstName": "John",
+      "lastName": "Doe",
+      "userEmail": "johndoe@example.com",
+      "password": "password123",
+      "userType": true,
+      "projectIds": ["111e4567-e89b-12d3-a456-426614174001", "222e4567-e89b-12d3-a456-426614174002"]
+  },
+  {
+      "uuid": "123e4567-e89b-12d3-a456-426655440000",
+      "username": "jane_smith",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "userEmail": "janesmith@example.com",
+      "password": "password456",
+      "userType": false,
+      "projectIds": ["333e4567-e89b-12d3-a456-426614174003"]
+  }
+]

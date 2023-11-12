@@ -1,32 +1,43 @@
 import java.io.IOException;
 import java.util.UUID;
 import org.json.simple.parser.ParseException;
+import java.util.List; 
 
 public class ProjectListDriver {
 
-    public static void main(String[] args) throws IOException, ParseException {
-        // Initialize the ProjectList
-        ProjectList projectList = ProjectList.getInstance();
+    public static void main(String[] args) {
+        try {
+            // Initialize ProjectList instance
+            ProjectList projectList = ProjectList.getInstance();
 
-        // Create a new project
-        UUID projectId = UUID.randomUUID();
-        Project project = new Project(projectId, "Sample Project", new Board("Sample Board"), "2023-10-26 12:00:00");
+            // Create a new project
+            UUID projectId = UUID.randomUUID();
+            Project newProject = new Project(projectId, "Test Project", new Board("Test Board"), "2023-01-01");
 
-        // Add the project to the list
-        projectList.addProject(project);
+            // Add new project to the list
+            System.out.println("Adding a new project...");
+            projectList.addProject(newProject);
 
-        // Retrieve a project by ID
-        Project retrievedProject = projectList.getProjectById(projectId);
-        if (retrievedProject != null) {
-            System.out.println("Retrieved Project: " + retrievedProject.getProjectName());
-        } else {
-            System.out.println("Project not found.");
+            // Display all projects
+            System.out.println("Current projects:");
+            displayProjects(projectList.getAllProjects());
+
+            // Remove project
+            System.out.println("Removing project...");
+            projectList.removeProject(projectId);
+
+            // Display all projects after deletion
+            System.out.println("Projects after deletion:");
+            displayProjects(projectList.getAllProjects());
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
+    }
 
-        // Remove the project
-        projectList.removeProject(projectId);
-
-        // Save the projects
-        projectList.saveProjects();
+    private static void displayProjects(List<Project> projects) {
+        for (Project project : projects) {
+            System.out.println("Project: " + project.getProjectName() + ", Date: " + project.getDateTime());
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 public class DataLoader {
     private static final String USER_FILE_PATH = "lib/user.json";
     private static final String TASKS_FILE_PATH = "lib/tasks.json";
-    private static final String PROJECTS_FILE_PATH = "lib/projects.json";
+    private static final String PROJECTS_FILE_PATH = "lib/project.json";
 
     public static List<User> loadUsers() throws IOException, ParseException {
         List<User> users = new ArrayList<>();
