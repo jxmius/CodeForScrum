@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+
+<VBox fx:controller="UserManagementController" xmlns:fx="http://javafx.com/fxml" stylesheets="@style.css" spacing="20">
+    <HBox alignment="CENTER_LEFT">
+        <Button text="←" onAction="#handleBack" />
+        <Text text="User Management" styleClass="title" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <ListView fx:id="userList" VBox.vgrow="ALWAYS">
+        <!-- List items will be added dynamically in the controller -->
+    </ListView>
+</VBox>
