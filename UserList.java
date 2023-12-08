@@ -27,7 +27,6 @@ public class UserList {
     public List<User> getUsers() {
         return userList;
     }
-    
 
     public void updateUser(UUID userId, User updatedUser) throws IOException {
         User user = getUserByUUID(userId);

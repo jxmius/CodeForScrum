@@ -1,71 +1,85 @@
-import java.io.PrintWriter;
-import java.util.Optional;
+import java.io.IOException;
+import org.json.simple.parser.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 
 public class ProjectSystemFACADE {
-    private ProjectList projectList;
-    private UserList userList; // not working??
 
-    public ProjectSystemFacade() {
-        this.projectList = ProjectList.getInstance(); 
-        this.userList = UserList.getInstance(); 
+    private static ProjectSystemFACADE instance;
+
+    private ProjectSystemFACADE() {
     }
 
-    public void openProject(String projectName) {
-        // Implementation 
+    public static ProjectSystemFACADE getInstance() {
+        if (instance == null) {
+            try {
+                instance = new ProjectSystemFACADE();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+        }
+        return instance;
     }
 
-    public void addTaskToProject(String projectName, String taskName, String assigneeUsername, String taskDescription) {
-        Project project = findProjectByName(projectName);
-        User assignee = userList.getUser(assigneeUsername);
-        Contributor contributor = new Contributor(assignee.getUsername(), assignee.getFirstName(), assignee.getLastName());
-        Task newTask = new Task(taskName, /* other params */);
-        newTask.assignUser(contributor);
-        project.getBoard().addTaskToColumn("To Do", newTask);
-    }
-
-    public void addCommentToTask(String projectName, String taskName, String commentText) {
-        Task task = findTaskByName(projectName, taskName);
-        if (task != null) {
-            Comments comment = new Comments("Atticus Madden", commentText, /* current dateTime */);
-            task.addComment(comment);
+    public List<Project> getAllProjects() {
+        try {
+            return ProjectList.getInstance().getAllProjects();
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 
-    public void moveTaskToColumn(String projectName, String taskName, String columnName) {
-        Project project = findProjectByName(projectName);
-        Task task = findTaskByName(projectName, taskName);
-        project.getBoard().moveTask(/* fromColumn */, columnName, task);
-    }
-
-    public void addColumnToBoard(String projectName, String columnName) {
-        Project project = findProjectByName(projectName);
-        project.getBoard().addColumn(columnName);
-    }
-
-    public void printScrumBoardToFile(String projectName, String filename) {
-        Project project = findProjectByName(projectName);
-        Board board = project.getBoard();
-
-        try (PrintWriter writer = new PrintWriter(filename)) {
-            writer.println("SCRUM Board for: " + projectName);
-            board.getColumnsMap().forEach((column, tasks) -> {
-                writer.println("Column: " + column);
-                tasks.getTasks().forEach(task -> {
-                    writer.println("  Task: " + task.getTaskName());
-                });
-            });
-        } catch (Exception e) {
+    public void addProject(Project project) {
+        try {
+            ProjectList.getInstance().addProject(project);
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
 
-    private Project findProjectByName(String projectName) {
-        // Implementation
-        return null;
+    public void removeProject(UUID projectId) {
+        try {
+            ProjectList.getInstance().removeProject(projectId);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    private Task findTaskByName(String projectName, String taskName) {
-        // Implementation
-        return null;
+    public List<User> getAllUsers() {
+        try {
+            return UserList.getInstance().getUsers();
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public void addUser(User user) {
+        try {
+            UserList.getInstance().addUser(user);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeUser(UUID userId) {
+        try {
+            UserList.getInstance().deleteUser(userId);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveAll() {
+        try {
+            DataWriter.saveProjects(ProjectList.getInstance().getAllProjects());
+            DataWriter.saveUsers(UserList.getInstance().getUsers());
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

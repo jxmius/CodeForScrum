@@ -1,7 +1,7 @@
 [
   {
       "uuid": "123e4567-e89b-12d3-a456-426614174000",
-      "username": "john_doe",
+      "username": "john.doe",
       "firstName": "John",
       "lastName": "Doe",
       "userEmail": "johndoe@example.com",
@@ -11,7 +11,7 @@
   },
   {
       "uuid": "123e4567-e89b-12d3-a456-426655440000",
-      "username": "jane_smith",
+      "username": "jane.smith",
       "firstName": "Jane",
       "lastName": "Smith",
       "userEmail": "janesmith@example.com",
