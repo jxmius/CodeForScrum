@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:controller="TaskDetailsController" xmlns:fx="http://javafx.com/fxml" stylesheets="@style.css" hgap="10" vgap="10">
+    <Button text="←" GridPane.columnIndex="0" onAction="#handleBack"/>
+    <Text text="Task Details" styleClass="header-label" GridPane.columnIndex="1"/>
+    <TextField fx:id="taskNameField" promptText="Task" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <TextField fx:id="taskTypeField" promptText="Task Type" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <ComboBox fx:id="userComboBox" promptText="Users" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <TextField fx:id="descriptionField" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <TextField fx:id="addUserField" promptText="Add User" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <DatePicker fx:id="dueDateField" promptText="Due Date" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <TextField fx:id="linksField" promptText="Links" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <TextArea fx:id="commentsArea" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="6"/>
+    <TextField fx:id="newCommentField" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+    <Button text="Add Comment" GridPane.columnIndex="2" GridPane.rowIndex="8" onAction="#handleAddComment"/>
+</GridPane>

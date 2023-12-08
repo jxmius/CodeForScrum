@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<VBox fx:controller="NewProjectController" xmlns:fx="http://javafx.com/fxml" stylesheets="@style.css" spacing="10">
+    <Button text="←" onAction="#handleBack"/>
+    <Text text="Let's Get Started!" styleClass="header-label"/>
+    <TextField fx:id="projectNameField" promptText="What do you want to call your Project?"/>
+    <TextField fx:id="teamMembersField" promptText="Add Team Members"/>
+    <VBox spacing="5">
+        <Label text="Add your Columns here:"/>
+        <HBox spacing="5">
+            <TextField fx:id="todoColumnField" promptText="To Do"/>
+            <Button text="+ Add" onAction="#handleAddColumn"/>
+        </HBox>
+        <HBox spacing="5">
+            <TextField fx:id="inProgressColumnField" promptText="In Progress"/>
+            <Button text="+ Add" onAction="#handleAddColumn"/>
+        </HBox>
+        <HBox spacing="5">
+            <TextField fx:id="doneColumnField" promptText="Done!"/>
+            <Button text="+ Add" onAction="#handleAddColumn"/>
+        </HBox>
+    </VBox>
+    <Button text="Create Project" onAction="#handleCreateProject"/>
+</VBox>

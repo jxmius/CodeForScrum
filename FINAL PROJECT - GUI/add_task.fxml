@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane fx:controller="AddTaskController" xmlns:fx="http://javafx.com/fxml" stylesheets="@style.css">
+    <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="New Task" styleClass="header-label"/>
+        <ComboBox fx:id="columnChoice" promptText="What Column is this for?">
+            <!-- Populate ComboBox options in the controller -->
+        </ComboBox>
+        <TextField fx:id="taskNameField" promptText="Task Name"/>
+        <TextField fx:id="taskDescriptionField" promptText="Task Description"/>
+        <DatePicker fx:id="dueDateField" promptText="Due Date"/>
+        <TextField fx:id="addUsersField" promptText="Add Users"/>
+        <Button text="Make Task" onAction="#handleMakeTask"/>
+    </VBox>
+</AnchorPane>
