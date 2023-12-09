@@ -91,6 +91,33 @@ public class ProjectSystemFACADE {
         }
     }
 
+    public void deleteProject(UUID projectId) {
+        try {
+            ProjectList.getInstance().removeProject(projectId);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void updateProject(UUID projectId, Project updatedProject) throws IOException {
+        List<Project> projects = getAllProjects();
 
+        for (int i = 0; i < projects.size(); i++) {
+            if (projects.get(i).getId().equals(projectId)) {
+                projects.set(i, updatedProject);
+                saveProjects(); 
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Project not found with ID: " + projectId);
+    }
+    public void saveProjects() {
+        try {
+            List<Project> projects = ProjectList.getInstance().getAllProjects();
+            DataWriter.saveProjects(projects); // Assuming DataWriter is your class for writing data to files
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
