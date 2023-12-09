@@ -1,8 +1,11 @@
+package frontEnd;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,10 +24,12 @@ public class LoginController {
     private void handleLogin(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        // Handle login logic here
-        System.out.println("Login attempt with username: " + username + " and password: " + password);
-        // On Successful Login
-        switchToDashboard();
+        ProjectSystemFACADE facade = ProjectSystemFACADE.getInstance();
+        if (facade.validateLogin(username, password)) {
+            switchToDashboard();
+        } else {
+            showAlert("Login Failed", "Invalid username or password.");
+        }
     }
 
     @FXML
@@ -50,5 +55,12 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

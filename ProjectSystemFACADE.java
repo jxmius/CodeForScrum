@@ -8,7 +8,15 @@ import java.util.UUID;
 public class ProjectSystemFACADE {
 
     private static ProjectSystemFACADE instance;
+    private UserList userList;
 
+    public boolean validateLogin(String username, String password) {
+        User user = userList.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return true; // Login successful
+        }
+        return false; // Login failed
+    }
     private ProjectSystemFACADE() {
     }
 
@@ -82,4 +90,7 @@ public class ProjectSystemFACADE {
             e.printStackTrace();
         }
     }
+
+
+
 }
