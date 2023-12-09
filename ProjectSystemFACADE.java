@@ -115,9 +115,10 @@ public class ProjectSystemFACADE {
     public void saveProjects() {
         try {
             List<Project> projects = ProjectList.getInstance().getAllProjects();
-            DataWriter.saveProjects(projects); // Assuming DataWriter is your class for writing data to files
+            DataWriter.saveProjects(projects); 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
+
 }

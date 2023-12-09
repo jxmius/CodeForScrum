@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
@@ -9,10 +12,12 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
-        // Populate the list with items. This could be dynamic if loading from a database or service.
-        projectsList.getItems().addAll("CSCE247", "CSCE190", "INTERNSHIP2024");
+        ProjectSystemFACADE facade = ProjectSystemFACADE.getInstance();
+        List<Project> projects = facade.getAllProjects();
+        for (Project project : projects) {
+            projectsList.getItems().add(project.getProjectName());
+        }
     }
-
     @FXML
     private void handleBack() {
         // Logic to go back (e.g., to the login screen)
