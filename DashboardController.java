@@ -17,10 +17,17 @@ public class DashboardController {
         for (Project project : projects) {
             projectsList.getItems().add(project.getProjectName());
         }
+        onProjectSelected();
     }
     @FXML
     private void handleBack() {
-        // Logic to go back (e.g., to the login screen)
+        try {
+            Stage stage = (Stage) projectsList.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }    
     }
 
     @FXML

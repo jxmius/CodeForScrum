@@ -120,5 +120,25 @@ public class ProjectSystemFACADE {
             e.printStackTrace();
         }
     }
+    public List<Task> getTasksForProject(String projectName) {
+        List<Project> projects;
+        try {
+            projects = DataLoader.loadProjects();
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+
+        for (Project project : projects) {
+            if (project.getProjectName().equals(projectName)) {
+                List<Task> tasks = new ArrayList<>();
+                for (Columns column : project.getBoard().getColumnsMap().values()) {
+                    tasks.addAll(column.getTasks());
+                }
+                return tasks;
+            }
+        }
+        return new ArrayList<>();
+    }
 
 }
